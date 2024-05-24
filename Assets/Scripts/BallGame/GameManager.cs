@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public float gameTime = 300.0f; 
 
     private int score;
-    private float timeRemaining;
+    private float timeRemaining = -100;
+    public bool playGame = false;
 
     public enum MaterialTag
     {
@@ -35,17 +36,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         score = 0;
-        timeRemaining = gameTime;
     }
 
     void Update()
     {
-        timeRemaining -= Time.deltaTime;
-        if (timeRemaining <= 0)
+        if(timeRemaining > 0)
         {
-            timeRemaining = 0;
+            timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 0)
+            {
+                timeRemaining = 0;
+            }
+            UpdateUI();
         }
-        UpdateUI();
+        else
+        {
+            EndGame();
+        }
+
     }
 
     public void AddScore(int points)
@@ -58,5 +66,16 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = "Score: " + score;
         timeText.text = "Time: " + Mathf.CeilToInt(timeRemaining);
+    }
+
+    public void StartGame()
+    {
+        timeRemaining = gameTime;
+        playGame = true;
+    }
+
+    public void EndGame()
+    {
+        playGame = false;
     }
 }

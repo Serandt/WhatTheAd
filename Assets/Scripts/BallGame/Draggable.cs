@@ -15,20 +15,26 @@ public class Draggable : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (rb != null)
+        if (GameManager.Instance.playGame)
         {
-            rb.isKinematic = true; 
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+            offset = transform.position - GetMouseWorldPosition();
+            originalLayer = gameObject.layer;
+            gameObject.layer = LayerMask.NameToLayer("IgnoreRaycastDuringDrag");
         }
-        offset = transform.position - GetMouseWorldPosition();
-        originalLayer = gameObject.layer;
-        gameObject.layer = LayerMask.NameToLayer("IgnoreRaycastDuringDrag");
     }
 
     private void OnMouseDrag()
     {
-        Vector3 mouseWorldPos = GetMouseWorldPosition() + offset;
-        mouseWorldPos.y = fixedY; 
-        transform.position = mouseWorldPos;
+        if (GameManager.Instance.playGame)
+        {
+            Vector3 mouseWorldPos = GetMouseWorldPosition() + offset;
+            mouseWorldPos.y = fixedY;
+            transform.position = mouseWorldPos;
+        }
     }
 
     private Vector3 GetMouseWorldPosition()

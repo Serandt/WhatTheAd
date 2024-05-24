@@ -15,24 +15,22 @@ public class BallSpawner : MonoBehaviour
     void Start()
     {
         currentInterval = startInterval;
-        lastSpawnTime = Time.time;
+        lastSpawnTime = -100;
     }
 
     void Update()
     {
-        timeElapsed += Time.deltaTime;
-        if (timeElapsed >= GameManager.Instance.gameTime)
+        if (GameManager.Instance.playGame)
         {
-            enabled = false;
-            return;
-        }
+            timeElapsed += Time.deltaTime;
 
-        if (Time.time - lastSpawnTime >= currentInterval)
-        {
-            SpawnBall();
-            lastSpawnTime = Time.time;
+            if (Time.time - lastSpawnTime >= currentInterval)
+            {
+                SpawnBall();
+                lastSpawnTime = Time.time;
 
-            currentInterval = Mathf.Lerp(startInterval, endInterval, timeElapsed / decreaseTime);
+                currentInterval = Mathf.Lerp(startInterval, endInterval, timeElapsed / decreaseTime);
+            }
         }
     }
 
