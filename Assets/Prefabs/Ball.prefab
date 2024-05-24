@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 3279479206226185093}
   - component: {fileID: 465448867414669975}
   - component: {fileID: 2109464023819644077}
-  - component: {fileID: 5636833944644704534}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,15 +150,3 @@ MonoBehaviour:
   blueMaterial: {fileID: 2100000, guid: f1be2de3fad62c245bf3e7edee570e5e, type: 2}
   yellowMaterial: {fileID: 2100000, guid: 3f393f5229a6e0347b3728fef878492e, type: 2}
   ballMaterialTag: 
---- !u!114 &5636833944644704534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457870501482630030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0dbcfcbeb0c89f448e399a01d83a304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
