@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         score = 0;
+        ManageUiVisibility(false);
     }
 
     void Update()
@@ -72,10 +73,18 @@ public class GameManager : MonoBehaviour
     {
         timeRemaining = gameTime;
         playGame = true;
+        ManageUiVisibility(true);
     }
 
     public void EndGame()
     {
         playGame = false;
+        ManageUiVisibility(false);
+    }
+
+    private void ManageUiVisibility(bool b)
+    {
+        scoreText.gameObject.SetActive(b);
+        timeText.gameObject.SetActive(b);
     }
 }

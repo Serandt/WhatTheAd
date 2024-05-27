@@ -19,7 +19,6 @@ public class Basket : MonoBehaviour
                 GameManager.Instance.AddScore(-1);
             }
             Destroy(other.gameObject);
-            ControllerInteraction.Instance.ball = null;
         }
     }
 }
