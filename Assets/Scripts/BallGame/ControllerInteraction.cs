@@ -4,7 +4,6 @@ public class ControllerInteraction : MonoBehaviour
 {
     public OVRInput.Controller controller;
     private float triggerValue;
-    private bool ballSelected;
     private int originalLayer;
     public GameObject ball;
 
@@ -12,7 +11,6 @@ public class ControllerInteraction : MonoBehaviour
 
     private void Start()
     {
-        ballSelected = false;
         Instance = this;
     }
 
@@ -20,14 +18,17 @@ public class ControllerInteraction : MonoBehaviour
     {
         triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, controller);
 
-        if (ballSelected && triggerValue > 0.95f && ball != null)
+        if (ball != null)
         {
-            ball.GetComponent<Rigidbody>().useGravity = false;
-            ball.transform.position = transform.position;
-        }
-        else if (ballSelected && ball != null)
-        {
-            ball.GetComponent <Rigidbody>().useGravity = true;
+            if (triggerValue > 0.95f)
+            {
+                ball.GetComponent<Rigidbody>().useGravity = false;
+                ball.transform.position = transform.position;
+            }
+            else
+            {
+                ball.GetComponent<Rigidbody>().useGravity = true;
+            }
         }
     }
 
@@ -41,23 +42,21 @@ public class ControllerInteraction : MonoBehaviour
 
         if (other.CompareTag("Ball"))
         {
-            if (!ballSelected)
+            if (ball == null)
             {
                 ball = other.gameObject;
                 originalLayer = gameObject.layer;
                 ball.layer = LayerMask.NameToLayer("IgnoreRaycastDuringDrag");
-                ballSelected = true;
             }
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Ball"))
         {
-            ballSelected = false;
             other.gameObject.layer = originalLayer;
             ball = null;
         }
     }
-
 }
