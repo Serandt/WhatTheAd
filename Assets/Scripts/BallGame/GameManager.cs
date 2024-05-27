@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public TMP_Text scoreText;
-    public TMP_Text timeText;
+    public GameObject scoreClock;
+    public GameObject timeClock;
     public float gameTime = 300.0f; 
 
     private int score;
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         score = 0;
-        ManageUiVisibility(false);
     }
 
     void Update()
@@ -65,26 +64,19 @@ public class GameManager : MonoBehaviour
 
     void UpdateUI()
     {
-        scoreText.text = "Score: " + score;
-        timeText.text = "Time: " + Mathf.CeilToInt(timeRemaining);
+        scoreClock.GetComponent<TextMeshPro>().text = score.ToString();
+        timeClock.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(timeRemaining).ToString();
     }
 
     public void StartGame()
     {
         timeRemaining = gameTime;
         playGame = true;
-        ManageUiVisibility(true);
     }
 
     public void EndGame()
     {
         playGame = false;
-        ManageUiVisibility(false);
     }
 
-    private void ManageUiVisibility(bool b)
-    {
-        scoreText.gameObject.SetActive(b);
-        timeText.gameObject.SetActive(b);
-    }
 }
