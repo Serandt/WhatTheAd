@@ -4,55 +4,59 @@ public class ControllerInteraction : MonoBehaviour
 {
     public OVRInput.Controller controller;
     private float triggerValue;
-    private bool ballSelected = false;
+    private bool ballSelected;
     private int originalLayer;
-    private bool isGrabbing;
-    private GameObject ball;
-    private GameObject interaction;
+    public GameObject ball;
+
+    public static ControllerInteraction Instance;
+
+    private void Start()
+    {
+        ballSelected = false;
+        Instance = this;
+    }
 
     private void Update()
     {
-        if (ballSelected)
+        triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, controller);
+
+        if (ballSelected && triggerValue > 0.95f && ball != null)
         {
+            ball.GetComponent<Rigidbody>().useGravity = false;
             ball.transform.position = transform.position;
         }
-
-        if (isGrabbing)
+        else if (ballSelected && ball != null)
         {
-            Debug.Log("current trigger value: " + OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller));
-            
+            ball.GetComponent <Rigidbody>().useGravity = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger");
-        ballSelected = true;
-        interaction = other.gameObject;
-
         if (other.CompareTag("RedButton"))
         {
             GameManager.Instance.StartGame();
-            Destroy(interaction.gameObject);
+            Destroy(other.gameObject);
         }
 
         if (other.CompareTag("Ball"))
         {
-            Debug.Log("Ball Triggered");
-            originalLayer = gameObject.layer;
-            other.gameObject.layer = LayerMask.NameToLayer("IgnoreRaycastDuringDrag");
-            ball = other.gameObject;
-            ballSelected = true;
-            other.GetComponent<Rigidbody>().useGravity = false;
+            if (!ballSelected)
+            {
+                ball = other.gameObject;
+                originalLayer = gameObject.layer;
+                ball.layer = LayerMask.NameToLayer("IgnoreRaycastDuringDrag");
+                ballSelected = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        ballSelected = false;
         if (other.gameObject.CompareTag("Ball"))
         {
-            isGrabbing = false;
+            ballSelected = false;
             other.gameObject.layer = originalLayer;
+            ball = null;
         }
     }
 
