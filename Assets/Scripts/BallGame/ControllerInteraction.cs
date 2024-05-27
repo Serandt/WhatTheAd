@@ -1,64 +1,58 @@
-using Oculus.Interaction;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ControllerInteraction : MonoBehaviour
 {
     public OVRInput.Controller controller;
     private float triggerValue;
-    private bool isInCollider;
+    private bool ballSelected = false;
     private int originalLayer;
     private bool isGrabbing;
     private GameObject ball;
+    private GameObject interaction;
 
     private void Update()
     {
+        if (ballSelected)
+        {
+            ball.transform.position = transform.position;
+        }
+
         if (isGrabbing)
         {
-            ball.transform.position = this.transform.position;
-        }
-
-        triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller);
-
-        if (triggerValue > 0.95f) 
-        {
-            Debug.Log("Trigger pressed");
+            Debug.Log("current trigger value: " + OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller));
+            
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision");
-        isInCollider = true;
-        triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller);
+        Debug.Log("Trigger");
+        ballSelected = true;
+        interaction = other.gameObject;
 
-        if (isInCollider && triggerValue > 0.95f)
+        if (other.CompareTag("RedButton"))
         {
-            if (collision.gameObject.CompareTag("RedButton"))
-            {
-                Debug.Log("Red Button Collision");
-                GameManager.Instance.StartGame();
-                Destroy(collision.gameObject);
-            }
-            else if (collision.gameObject.CompareTag("Ball"))
-            {
-                Debug.Log("Ball Collision");
-                originalLayer = gameObject.layer;
-                collision.gameObject.layer = LayerMask.NameToLayer("IgnoreRaycastDuringDrag");
-                ball = collision.gameObject;
-                isGrabbing = true;
-            }
+            GameManager.Instance.StartGame();
+            Destroy(interaction.gameObject);
+        }
+
+        if (other.CompareTag("Ball"))
+        {
+            Debug.Log("Ball Triggered");
+            originalLayer = gameObject.layer;
+            other.gameObject.layer = LayerMask.NameToLayer("IgnoreRaycastDuringDrag");
+            ball = other.gameObject;
+            ballSelected = true;
+            other.GetComponent<Rigidbody>().useGravity = false;
         }
     }
-
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        isInCollider = false;
-        if (collision.gameObject.CompareTag("Ball"))
+        ballSelected = false;
+        if (other.gameObject.CompareTag("Ball"))
         {
             isGrabbing = false;
-            collision.gameObject.layer = originalLayer;
+            other.gameObject.layer = originalLayer;
         }
     }
 
