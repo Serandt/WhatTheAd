@@ -647,6 +647,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Condition A
       objectReference: {fileID: 0}
+    - target: {fileID: 2649260241815648368, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
+      propertyPath: m_TagString
+      value: ConditionA
+      objectReference: {fileID: 0}
     - target: {fileID: 3336926402855274284, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
       propertyPath: m_text
       value: 'A
@@ -715,6 +719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Demo
       objectReference: {fileID: 0}
+    - target: {fileID: 2649260241815648368, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
+      propertyPath: m_TagString
+      value: DemoButton
+      objectReference: {fileID: 0}
     - target: {fileID: 3427169548247032522, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0025
@@ -776,6 +784,10 @@ PrefabInstance:
     - target: {fileID: 2649260241815648368, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
       propertyPath: m_Name
       value: Condition C
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649260241815648368, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
+      propertyPath: m_TagString
+      value: ConditionC
       objectReference: {fileID: 0}
     - target: {fileID: 3336926402855274284, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
       propertyPath: m_text
@@ -904,6 +916,10 @@ PrefabInstance:
     - target: {fileID: 2649260241815648368, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
       propertyPath: m_Name
       value: Condition B
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649260241815648368, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
+      propertyPath: m_TagString
+      value: ConditionB
       objectReference: {fileID: 0}
     - target: {fileID: 3336926402855274284, guid: b9b5300843321e843a4dc670a58ceed0, type: 3}
       propertyPath: m_text

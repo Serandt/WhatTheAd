@@ -8,17 +8,29 @@ public class GameManager : MonoBehaviour
 
     public GameObject scoreClock;
     public GameObject timeClock;
-    public float gameTime = 300.0f; 
+    public static float gameTime = 300.0f; 
 
     private int score;
     private float timeRemaining = -100;
     public bool playGame = false;
+
+    private GameObject _buttons;
+    private Condition condition;
 
     public enum MaterialTag
     {
         Red,
         Blue,
         Yellow
+    }
+
+    public enum Condition
+    {
+        None,
+        Demo,
+        Sort,
+        Repeate,
+        Move
     }
 
     void Awake()
@@ -36,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         score = 0;
+        _buttons = GameObject.Find("Buttons");
     }
 
     void Update()
@@ -68,15 +81,18 @@ public class GameManager : MonoBehaviour
         timeClock.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(timeRemaining).ToString();
     }
 
-    public void StartGame()
+    public void StartGame(Condition cond)
     {
+        _buttons.SetActive(false);
         timeRemaining = gameTime;
         playGame = true;
+        condition = cond;
     }
 
     public void EndGame()
     {
         playGame = false;
+        condition = Condition.None;
     }
 
 }
