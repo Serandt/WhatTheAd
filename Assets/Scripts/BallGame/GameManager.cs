@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static float gameTime = 300.0f; 
 
     private int score;
-    private float timeRemaining = -100;
+    public static float timeRemaining = -100;
     public bool playGame = false;
 
     private GameObject _buttons;

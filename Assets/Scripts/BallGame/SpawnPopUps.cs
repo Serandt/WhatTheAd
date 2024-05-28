@@ -7,30 +7,31 @@ public class SpawnPopUps : MonoBehaviour
     public GameObject popup3;
     public GameObject popup4;
 
-    private float gameTime;
-
-    void Start()
+    private void Awake()
     {
-        gameTime = GameManager.gameTime;
+        //TODO: Set time lapse
+
+        Invoke("ActivatePopup1", 5.0f);
+        Invoke("ActivatePopup2", 15.0f);
+        Invoke("ActivatePopup3", 30.0f);
+        Invoke("ActivatePopup4", 45.0f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ActivatePopup1()
     {
-        switch (gameTime)
-        {
-            case 250f:
-                popup1.SetActive(false);
-                break;
-            case 190f:
-                popup2.SetActive(false);
-                break;
-            case 110f:
-                popup3.SetActive(false);
-                break;
-            case 70f:
-                popup4.SetActive(false);
-                break;
-        }
+        popup1.gameObject.SetActive(true);
+    }
+
+    private void ActivatePopup2()
+    {
+        popup2.gameObject.SetActive(true);
+    }
+    private void ActivatePopup3()
+    {
+        popup3.gameObject.SetActive(true);
+    }
+    private void ActivatePopup4()
+    {
+        popup4.gameObject.SetActive(true);
     }
 }
