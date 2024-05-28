@@ -17,5 +17,11 @@ public class ControllerInteraction : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+
+        if (other.CompareTag("Popup"))
+        {
+            Destroy(other.gameObject);
+            GameManager.isPopupActive = false;
+        }
     }
 }
