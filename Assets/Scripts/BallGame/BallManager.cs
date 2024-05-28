@@ -1,3 +1,4 @@
+using Oculus.Interaction;
 using UnityEngine;
 
 public class BallManager : MonoBehaviour
@@ -12,6 +13,18 @@ public class BallManager : MonoBehaviour
     void Start()
     {
         SetRandomMaterial();
+    }
+
+    private void Update()
+    {
+        if (GameManager.popupsCount > 0)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 
     public void SetRandomMaterial()

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject _buttons;
     private Condition condition;
-    public static bool isPopupActive = false;
+    public static int popupsCount = 0;
     public enum MaterialTag
     {
         Red,

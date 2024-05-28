@@ -20,22 +20,22 @@ public class SpawnPopUps : MonoBehaviour
     private void ActivatePopup1()
     {
         popup1.gameObject.SetActive(true);
-        GameManager.isPopupActive = true;
+        GameManager.popupsCount += 1;
     }
 
     private void ActivatePopup2()
     {
         popup2.gameObject.SetActive(true);
-        GameManager.isPopupActive = true;
+        GameManager.popupsCount += 1;
     }
     private void ActivatePopup3()
     {
         popup3.gameObject.SetActive(true);
-        GameManager.isPopupActive = true;
+        GameManager.popupsCount += 1;
     }
     private void ActivatePopup4()
     {
         popup4.gameObject.SetActive(true);
-        GameManager.isPopupActive = true;
+        GameManager.popupsCount += 1;
     }
 }
