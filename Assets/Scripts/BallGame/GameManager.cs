@@ -78,15 +78,13 @@ public class GameManager : MonoBehaviour
         score++;
         UpdateUI();
 
-        float currentTime = Time.time;
-        GameData.Instance.AddEvent(currentTime, true);
+        GameData.Instance.AddEvent(Time.time, true);
     }
 
     public void AddError()
     {
         score--;
-        float currentTime = Time.time;
-        GameData.Instance.AddEvent(currentTime, false);
+        GameData.Instance.AddEvent(Time.time, false);
     }
 
     void UpdateUI()
