@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,21 +65,34 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            EndGame();
+            if (playGame)
+            {
+                EndGame();
+            }
         }
 
     }
 
-    public void AddScore(int points)
+    public void AddScore()
     {
-        score += points;
+        score++;
         UpdateUI();
+
+        float currentTime = Time.time;
+        GameData.Instance.AddEvent(currentTime, true);
+    }
+
+    public void AddError()
+    {
+        score--;
+        float currentTime = Time.time;
+        GameData.Instance.AddEvent(currentTime, false);
     }
 
     void UpdateUI()
     {
-        scoreClock.GetComponent<TextMeshPro>().text = score.ToString();
-        timeClock.GetComponent<TextMeshPro>().text = Mathf.CeilToInt(timeRemaining).ToString();
+        scoreClock.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
+        timeClock.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
     }
 
     public void StartGame(Condition cond)
@@ -93,6 +107,14 @@ public class GameManager : MonoBehaviour
     {
         playGame = false;
         condition = Condition.None;
+        GameData.Instance.SaveData();
+        HighscoreManager.Instance.SaveHighscore(score);
+    }
+
+    private string FormatTime(float timeInSeconds)
+    {
+        TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(timeInSeconds));
+        return string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
     }
 
 }
