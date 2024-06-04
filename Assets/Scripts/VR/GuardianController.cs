@@ -5,31 +5,41 @@ using Oculus.Platform.Models;
 
 public class GuardianController : MonoBehaviour
 {
+    private OVRBoundary boundary;
 
-    [System.Obsolete]
     void Start()
     {
-        OVRManager.boundary.GetConfigured();
-        OVRManager.boundary.GetVisible();
+        boundary = new OVRBoundary();
     }
 
-    [System.Obsolete]
     void Update()
     {
         CheckBoundaryCollision();
     }
 
-    [System.Obsolete]
     void CheckBoundaryCollision()
     {
-        // Get the boundary test result
-        OVRBoundary.BoundaryTestResult boundaryTestResult = OVRManager.boundary.TestNode(OVRBoundary.Node.HandRight, OVRBoundary.BoundaryType.PlayArea);
-
-        // Check if the player is colliding with the boundary
-        if (boundaryTestResult.IsTriggering)
+        // Check if the boundary system is configured
+        if (OVRManager.boundary.GetConfigured())
         {
-            Debug.Log("Player is colliding with the Guardian boundary!");
-            GameManager.Instance.StartGame(GameManager.Condition.None);
+            // Test the head and hand positions
+            List<OVRBoundary.BoundaryTestResult> testResults = new List<OVRBoundary.BoundaryTestResult>();
+            testResults.Add(boundary.TestNode(OVRBoundary.Node.Head, OVRBoundary.BoundaryType.OuterBoundary));
+            testResults.Add(boundary.TestNode(OVRBoundary.Node.HandLeft, OVRBoundary.BoundaryType.OuterBoundary));
+            testResults.Add(boundary.TestNode(OVRBoundary.Node.HandRight, OVRBoundary.BoundaryType.OuterBoundary));
+
+            foreach (var result in testResults)
+            {
+                if (result.IsTriggering)
+                {
+                    Debug.Log("Player is colliding with the Guardian boundary at " + result.ClosestPoint);
+                    GameManager.Instance.StartGame(GameManager.Condition.None);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Boundary system is not configured.");
         }
     }
 }
