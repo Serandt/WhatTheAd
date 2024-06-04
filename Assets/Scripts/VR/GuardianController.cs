@@ -35,6 +35,11 @@ public class GuardianController : MonoBehaviour
                     Debug.Log("Player is colliding with the Guardian boundary at " + result.ClosestPoint);
                     GameManager.Instance.StartGame(GameManager.Condition.None);
                 }
+                else
+                {
+                    float distance = Vector3.Distance(result.ClosestPoint, OVRManager.instance.transform.position);
+                    Debug.Log("Player's head is within the Guardian boundary. Distance to boundary: " + distance + " meters.");
+                }
             }
         }
         else
