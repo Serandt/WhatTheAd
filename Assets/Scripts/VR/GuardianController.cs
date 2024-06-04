@@ -5,27 +5,31 @@ using Oculus.Platform.Models;
 
 public class GuardianController : MonoBehaviour
 {
-    private OVRBoundary boundary;
 
     [System.Obsolete]
     void Start()
     {
-        boundary = new OVRBoundary();
-        Debug.Log(boundary);
-        boundary.SetVisible(false);
-        
+        OVRManager.boundary.GetConfigured();
+        OVRManager.boundary.GetVisible();
     }
 
     [System.Obsolete]
     void Update()
     {
-        Vector3 playerPosition = transform.position;
-        OVRBoundary.BoundaryTestResult result = boundary.TestPoint(playerPosition, OVRBoundary.BoundaryType.PlayArea);
+        CheckBoundaryCollision();
+    }
 
-        if (result.IsTriggering)
+    [System.Obsolete]
+    void CheckBoundaryCollision()
+    {
+        // Get the boundary test result
+        OVRBoundary.BoundaryTestResult boundaryTestResult = OVRManager.boundary.TestNode(OVRBoundary.Node.Head, OVRBoundary.BoundaryType.PlayArea);
+
+        // Check if the player is colliding with the boundary
+        if (boundaryTestResult.IsTriggering)
         {
-            Debug.Log("You are close to or outside the Guardian boundary!");
-            // Add your custom logic here, like showing a warning UI or taking corrective actions
+            Debug.Log("Player is colliding with the Guardian boundary!");
+            // Add your custom logic here, e.g., notify the player, change UI, etc.
         }
     }
 }

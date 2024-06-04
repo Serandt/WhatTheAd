@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject scoreClock;
     public GameObject timeClock;
-    public static float gameTime = 300.0f; 
+    public static float gameTime = 300.0f;
+
+    public int playerLives = 3;
 
     private int score;
     public static float timeRemaining = -100;
@@ -113,6 +115,18 @@ public class GameManager : MonoBehaviour
     {
         TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.CeilToInt(timeInSeconds));
         return string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
+    }
+
+    public void RemoveLive()
+    {
+        playerLives--;
+        Debug.Log("Lives: " + playerLives);
+
+        if(playerLives == 0)
+        {
+            Debug.Log("Game Over");
+            score = 0;
+        }
     }
 
 }
