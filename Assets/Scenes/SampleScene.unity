@@ -3242,6 +3242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreClock: {fileID: 1828374856}
   timeClock: {fileID: 2065255277}
+  distanceDisplay: {fileID: 1310985528}
   playerLives: 3
   playGame: 0
 --- !u!1001 &1310985526
@@ -3270,7 +3271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2319040507046691374, guid: 402f865b2f095704db9ef060c9fc8865, type: 3}
       propertyPath: m_Name
-      value: Highscore
+      value: Distance
       objectReference: {fileID: 0}
     - target: {fileID: 5976068694033917350, guid: 402f865b2f095704db9ef060c9fc8865, type: 3}
       propertyPath: m_Name
@@ -3347,6 +3348,11 @@ PrefabInstance:
 --- !u!4 &1310985527 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6459448827224604444, guid: 402f865b2f095704db9ef060c9fc8865, type: 3}
+  m_PrefabInstance: {fileID: 1310985526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1310985528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2319040507046691374, guid: 402f865b2f095704db9ef060c9fc8865, type: 3}
   m_PrefabInstance: {fileID: 1310985526}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1412986725
