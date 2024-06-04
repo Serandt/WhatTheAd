@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Oculus.Platform;
 using Oculus.Platform.Models;
+using TMPro;
 
 public class GuardianController : MonoBehaviour
 {
@@ -34,16 +35,19 @@ public class GuardianController : MonoBehaviour
                 {
                     Debug.Log("Player is colliding with the Guardian boundary at " + result.ClosestPoint);
                     GameManager.Instance.StartGame(GameManager.Condition.None);
+                    GameManager.Instance.distanceDisplay.GetComponent<TextMeshPro>().text = "Collision";
                 }
                 else
                 {
                     float distance = Vector3.Distance(result.ClosestPoint, OVRManager.instance.transform.position);
                     Debug.Log("Player's head is within the Guardian boundary. Distance to boundary: " + distance + " meters.");
+                    GameManager.Instance.distanceDisplay.GetComponent<TextMeshPro>().text = distance.ToString();
                 }
             }
         }
         else
         {
+            GameManager.Instance.distanceDisplay.GetComponent<TextMeshPro>().text = "Error";
             Debug.LogWarning("Boundary system is not configured.");
         }
     }

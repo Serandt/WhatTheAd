@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject scoreClock;
     public GameObject timeClock;
+    public GameObject distanceDisplay;
     public static float gameTime = 300.0f;
 
     public int playerLives = 3;
