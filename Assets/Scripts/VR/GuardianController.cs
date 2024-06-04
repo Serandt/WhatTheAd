@@ -23,13 +23,13 @@ public class GuardianController : MonoBehaviour
     void CheckBoundaryCollision()
     {
         // Get the boundary test result
-        OVRBoundary.BoundaryTestResult boundaryTestResult = OVRManager.boundary.TestNode(OVRBoundary.Node.Head, OVRBoundary.BoundaryType.PlayArea);
+        OVRBoundary.BoundaryTestResult boundaryTestResult = OVRManager.boundary.TestNode(OVRBoundary.Node.HandRight, OVRBoundary.BoundaryType.PlayArea);
 
         // Check if the player is colliding with the boundary
         if (boundaryTestResult.IsTriggering)
         {
             Debug.Log("Player is colliding with the Guardian boundary!");
-            // Add your custom logic here, e.g., notify the player, change UI, etc.
+            GameManager.Instance.StartGame(GameManager.Condition.None);
         }
     }
 }
