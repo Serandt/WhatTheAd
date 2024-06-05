@@ -9,7 +9,6 @@ public class SpawnPopUps : MonoBehaviour
 
     private void Awake()
     {
-        //TODO: Set time lapse
 
         Invoke("ActivatePopup1", 5.0f);
         Invoke("ActivatePopup2", 15.0f);
