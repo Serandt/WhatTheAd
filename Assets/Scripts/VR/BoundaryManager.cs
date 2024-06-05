@@ -4,13 +4,34 @@ using UnityEngine;
 
 public class BoundaryManager : MonoBehaviour
 {
-    private void OnTriggerExit(Collider other)
+    public GameObject hmd;
+    private Material defaultMaterial;
+    public Material danger1;
+    public Material danger2;
+
+    private void Start()
     {
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        defaultMaterial = GetComponent<MeshRenderer>().material;
+        hmd = GameObject.Find("OVRCameraRig");
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        gameObject.GetComponent<MeshRenderer>().enabled = true;
+        if (hmd.transform.position.x < -.7f && hmd.transform.position.x > -1.4f)
+        {
+            this.GetComponent<MeshRenderer>().material = danger1;
+        }
+        else if (hmd.transform.position.x > .7f && hmd.transform.position.x < 1.4f)
+        {
+            this.GetComponent<MeshRenderer>().material = danger1;
+        }
+        else if (hmd.transform.position.x < -1.4f || hmd.transform.position.x > 1.4f)
+        {
+            this.GetComponent<MeshRenderer>().material = danger2;
+        }
+        else
+        {
+            this.GetComponent<MeshRenderer>().material = defaultMaterial;
+        }
     }
 }
