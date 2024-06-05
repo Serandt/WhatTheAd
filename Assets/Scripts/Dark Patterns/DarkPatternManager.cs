@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class DarkPatternManager : MonoBehaviour
 {
-    [SerializeField] private OVRCameraRig overCameraRig;
+    [SerializeField] public OVRCameraRig overCameraRig;
     [SerializeField] private GameObject proximityAd;
+
+    public static DarkPatternManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -14,7 +21,7 @@ public class DarkPatternManager : MonoBehaviour
         SpawnyAd(proximityAd, 2);
     }
 
-    Vector3 GetCameraPos()
+    public Vector3 GetCameraPos()
     {
         overCameraRig = GameObject.Find("OVRCameraRig").GetComponent<OVRCameraRig>();
         return overCameraRig.centerEyeAnchor.position;
