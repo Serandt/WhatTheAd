@@ -9,13 +9,6 @@ public class BallSpawner : MonoBehaviour
     public float endInterval = 1.0f;
     public float decreaseTime = 120.0f;
 
-    [System.Serializable]
-    public struct SpawnIntervall
-    {
-        public int intervallLength;
-        public int spawnTime;
-    }
-    public SpawnIntervall[] spawnIntervalls;
     private float currentInterval;
     private float timeElapsed;
     private float lastSpawnTime;
