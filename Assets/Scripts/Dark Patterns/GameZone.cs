@@ -10,7 +10,6 @@ public class GameZone : MonoBehaviour
 
     public Rect[] zones; // Array to store the coordinates of each zone
 
-    public GameObject spawnObject;
 
     public static GameZone Instance;
 
