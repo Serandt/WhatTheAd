@@ -45,9 +45,9 @@ public class BoundaryManager : MonoBehaviour
 
     private bool InZone(Rect zone)
     {
-        if (currentPosition.x > zone.x && currentPosition.y > zone.y
+        if (currentPosition.x > zone.x && currentPosition.z > zone.y
             && currentPosition.x < zone.x + zone.width
-            && currentPosition.y < zone.y + zone.height)
+            && currentPosition.z < zone.y + zone.height)
         {
             return true;
         }
