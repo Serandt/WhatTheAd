@@ -991,6 +991,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5485832687590968406, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5485832687590968406, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5485832687590968406, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5485832687590968406, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
@@ -1042,11 +1054,25 @@ PrefabInstance:
       propertyPath: danger3
       value: 
       objectReference: {fileID: 2100000, guid: 8fe9131cb676dd54a94c31d58430daa0, type: 2}
+    - target: {fileID: 8268984825401876032, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+      propertyPath: cubeRenderer
+      value: 
+      objectReference: {fileID: 287521501}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+--- !u!1 &287521498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7022340081373294962, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+  m_PrefabInstance: {fileID: 287521497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &287521501 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5280479412203932111, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+  m_PrefabInstance: {fileID: 287521497}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &316044471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2785,7 +2811,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overCameraRig: {fileID: 2130237513}
+  spawnTimer: 1
+  maxSpawns: 10
   proximityAd: {fileID: 8155342164835831404, guid: 324bb1338ad545e4fb0be827bdae76ef, type: 3}
+  test: {fileID: 7012209239574755681, guid: 827287f28caeaee41993bebf49477f46, type: 3}
 --- !u!1001 &854437597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3043,7 +3072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 959730460}
-  - component: {fileID: 959730461}
+  - component: {fileID: 959730462}
   m_Layer: 0
   m_Name: GameZone
   m_TagString: Untagged
@@ -3066,7 +3095,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 835042800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &959730461
+--- !u!114 &959730462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3075,13 +3104,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 959730459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a94d92c1010f28a4c97d464a4808f8cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d44afa899e6a164bbd8203112fa6504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameAreaSize: {x: 10, y: 20}
-  numberOfZones: 4
-  spawnPoint: {x: 0, y: 0}
-  zones: []
+  noSpawnZoneWidth: 1
+  noSpawnZoneDepth: 1
+  spawnRadius: 0.1
+  boundary: {fileID: 287521498}
 --- !u!1 &1080583595 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}

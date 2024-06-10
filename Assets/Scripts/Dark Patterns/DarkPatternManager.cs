@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class DarkPatternManager : MonoBehaviour
 {
-    [SerializeField] public OVRCameraRig overCameraRig;
+    public OVRCameraRig overCameraRig;
+
+
+    public float spawnTimer = 1.0f;
+    public float maxSpawns = 10;
+
+    private int spawnCount = 0;
+    private float currentTimeSpawner;
+
     [SerializeField] private GameObject proximityAd;
+
+    public GameObject test;
 
     public static DarkPatternManager Instance;
 
@@ -14,11 +24,22 @@ public class DarkPatternManager : MonoBehaviour
         Instance = this;
     }
 
+    public void Update()
+    {
+        currentTimeSpawner -= Time.deltaTime;
+
+        if (currentTimeSpawner <= 0 && spawnCount < maxSpawns)
+        {
+            currentTimeSpawner = spawnTimer;
+            BoundaryZones.Instance.SpawnAd(test, 10, spawnCount);
+            spawnCount++;
+        }
+    }
+
     void Start()
     {
+        currentTimeSpawner = spawnTimer;
         Vector3 cameraPos = GetCameraPos();
-        Debug.Log("Camera Position: " + cameraPos);
-        SpawnyAd(proximityAd, 2);
     }
 
     public Vector3 GetCameraPos()
@@ -27,8 +48,4 @@ public class DarkPatternManager : MonoBehaviour
         return overCameraRig.centerEyeAnchor.position;
     }
 
-    public void SpawnyAd(GameObject ad,  int zone)
-    {
-        GameZone.Instance.SpawnObjectInZone(ad, zone, 1, 1);
-    }
 }
