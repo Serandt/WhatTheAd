@@ -7,20 +7,25 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public GameObject scoreClock;
-    public GameObject timeClock;
+    public GameObject scoreDisplay;
+    public GameObject timeDisplay;
     public GameObject distanceDisplay;
+    public GameObject LivesDisplay;
+    public GameObject highscoresDisplay;
+    public GameObject popupsDisplay;
+
     public static float gameTime = 300.0f;
 
     public int playerLives = 3;
 
-    private int score;
+    private double score;
     public static float timeRemaining = -100;
     public bool playGame = false;
 
     private GameObject _buttons;
     private Condition condition;
     public static int popupsCount = 0;
+
     public enum MaterialTag
     {
         Red,
@@ -53,6 +58,7 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         _buttons = GameObject.Find("Buttons");
+        //TODO: highscoresDisplay;
     }
 
     void Update()
@@ -73,12 +79,11 @@ public class GameManager : MonoBehaviour
                 EndGame();
             }
         }
-
     }
 
     public void AddScore()
     {
-        score++;
+        score *= Math.Pow(.5f, popupsCount); ;
         UpdateUI();
 
         GameData.Instance.AddEvent(Time.time, true);
@@ -92,8 +97,10 @@ public class GameManager : MonoBehaviour
 
     void UpdateUI()
     {
-        scoreClock.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
-        timeClock.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
+        scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
+        timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
+        popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {popupsCount} {Environment.NewLine} Points for ball: {Math.Pow(.5f, popupsCount)}";
+        //TODO: distanceDisplay;
     }
 
     public void StartGame(Condition cond)
@@ -107,11 +114,13 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         score -= DarkPatternManager.Instance.activePatterns.Count;
-        scoreClock.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
+        scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         playGame = false;
         condition = Condition.None;
         GameData.Instance.SaveData();
         HighscoreManager.Instance.SaveHighscore(score);
+        playerLives = 3;
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
     }
 
     private string FormatTime(float timeInSeconds)
@@ -123,6 +132,7 @@ public class GameManager : MonoBehaviour
     public void RemoveLive()
     {
         playerLives--;
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         Debug.Log("Lives: " + playerLives);
 
         if(playerLives == 0)

@@ -6,7 +6,7 @@ public class HighscoreManager : MonoBehaviour
 
     private const string HighscoreKey = "Highscore";
 
-    public int Highscore { get; private set; }
+    public double Highscore { get; private set; }
 
     void Awake()
     {
@@ -19,12 +19,12 @@ public class HighscoreManager : MonoBehaviour
         Highscore = PlayerPrefs.GetInt(HighscoreKey, 0);
     }
 
-    public void SaveHighscore(int newHighscore)
+    public void SaveHighscore(double newHighscore)
     {
         if (newHighscore > Highscore)
         {
             Highscore = newHighscore;
-            PlayerPrefs.SetInt(HighscoreKey, Highscore);
+            PlayerPrefs.SetFloat(HighscoreKey, (float)Highscore);
             PlayerPrefs.Save();
         }
     }
@@ -32,7 +32,7 @@ public class HighscoreManager : MonoBehaviour
     public void ResetHighscore()
     {
         Highscore = 0;
-        PlayerPrefs.SetInt(HighscoreKey, Highscore);
+        PlayerPrefs.SetFloat(HighscoreKey, (float)Highscore);
         PlayerPrefs.Save();
     }
 }
