@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject highscoresDisplay;
     public GameObject popupsDisplay;
 
-    public static float gameTime = 300.0f;
+    public static float gameTime = 20.0f;
 
     public int playerLives = 3;
 
@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         _buttons = GameObject.Find("Buttons");
+        StartGame(Condition.None);
+
         //TODO: highscoresDisplay;
     }
 
@@ -112,9 +114,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndGame()
-    {
-        score -= DarkPatternManager.Instance.activePatterns.Count;
-        scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
+    { 
+        foreach (var pattern in DarkPatternManager.Instance.activePatterns)
+        {
+            GameData.Instance.AddAdData(pattern.SpawnTime, float.NaN, pattern.IsClosed); 
+        }
+
         playGame = false;
         condition = Condition.None;
         GameData.Instance.SaveData();

@@ -18,10 +18,9 @@ public class ControllerInteraction : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Popup"))
+        if (other.CompareTag("ProximityAd")|| other.CompareTag("Popup")) 
         {
-            Destroy(other.gameObject);
-            GameManager.popupsCount -= 1;
+            DarkPatternManager.Instance.removeDarkPatternFromList(other.gameObject);
         }
     }
 }

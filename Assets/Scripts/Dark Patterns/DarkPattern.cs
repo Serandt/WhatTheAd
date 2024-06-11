@@ -6,8 +6,8 @@ using UnityEngine;
 public abstract class DarkPattern : MonoBehaviour
 {
     public int ID { get; private set; }
-    public DateTime SpawnTime { get; private set; }
-    public DateTime CloseTime { get; private set; }
+    public float SpawnTime { get; private set; }
+    public float CloseTime { get; private set; }
     public bool IsClosed { get; private set; }
 
     public GameObject GameObject;
@@ -16,15 +16,17 @@ public abstract class DarkPattern : MonoBehaviour
     {
         ID = id;
         GameObject = gameObject;
-        SpawnTime = DateTime.Now;
+        SpawnTime = Time.time;
         IsClosed = false;
     }
 
     public void Close()
     {
-        CloseTime = DateTime.Now;
+        CloseTime = Time.time;
         IsClosed = true;
+        GameData.Instance.AddAdData(SpawnTime, CloseTime, IsClosed);
         OnClose();
+        Destroy(this.gameObject);
     }
 
     protected virtual void OnClose()
