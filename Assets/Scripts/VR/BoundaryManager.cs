@@ -9,78 +9,64 @@ public class BoundaryManager : MonoBehaviour
     public Material danger2;
     public Material danger3;
 
+    private float[] thresholdWidths = new float[3];
+    private float[] thresholdDepths = new float[3];
 
-    private float thresholdWidth1;
-    private float thresholdWidth2;
-    private float thresholdWidth3;
-
-    private float thresholdDepth1;
-    private float thresholdDepth2;
-    private float thresholdDepth3;
-
-    private float width;
-    private float depth;
     private Vector3 surfaceCenter;
-
-
-    private Vector3 currentPosition;
+    private MeshRenderer meshRenderer;
 
     private void Start()
     {
-        defaultMaterial = GetComponent<MeshRenderer>().material;
-        Vector3 center = transform.position;
-        width = transform.localScale.x;
-        depth = transform.localScale.z;
-        surfaceCenter = new Vector3(center.x, center.y + transform.localScale.y / 2, center.z);
+        // Cache the MeshRenderer component at start
+        meshRenderer = GetComponent<MeshRenderer>();
+        defaultMaterial = meshRenderer.material;
 
-        float widthIncrease = width / 4;
-        float depthIncrease = depth / 4;
+        // Initialize boundaries based on object scale
+        Vector3 scale = transform.localScale;
+        surfaceCenter = new Vector3(transform.position.x, transform.position.y + scale.y / 2, transform.position.z);
 
-        thresholdWidth1 = widthIncrease;
-        thresholdWidth2 = widthIncrease * 2;
-        thresholdWidth3 = widthIncrease * 3;
+        InitializeThresholds(scale.x, thresholdWidths);
+        InitializeThresholds(scale.z, thresholdDepths);
+    }
 
-        thresholdDepth1 = depthIncrease;
-        thresholdDepth2 = depthIncrease * 2;
-        thresholdDepth3 = depthIncrease * 3;
-
-        Debug.Log(thresholdWidth1);
-        Debug.Log(thresholdWidth2);
-        Debug.Log(thresholdWidth3);
-
+    private void InitializeThresholds(float dimension, float[] thresholds)
+    {
+        float increment = dimension / 4;
+        for (int i = 0; i < 3; i++)
+        {
+            thresholds[i] = increment * (i + 1);
+        }
     }
 
     private void Update()
     {
-        currentPosition = hmd.transform.position;
-        Vector3 distanceToCenter = currentPosition - surfaceCenter;
+        Vector3 distanceToCenter = hmd.transform.position - surfaceCenter;
         float absDistanceX = Math.Abs(distanceToCenter.x);
         float absDistanceZ = Math.Abs(distanceToCenter.z);
 
+        // Determine the material based on the distance thresholds
+        Material newMaterial = DetermineMaterial(absDistanceX, absDistanceZ);
+        if (meshRenderer.material != newMaterial)
+        {
+            meshRenderer.material = newMaterial;
+        }
+    }
 
-
-        // Check the furthest thresholds first
-        if (absDistanceX > thresholdWidth3 || absDistanceZ > thresholdDepth3)
+    private Material DetermineMaterial(float absDistanceX, float absDistanceZ)
+    {
+        if (absDistanceX > thresholdWidths[2] || absDistanceZ > thresholdDepths[2])
         {
-            GetComponent<MeshRenderer>().material = danger3;
-            Debug.Log("Zone4");
+            return danger3;
         }
-        else if (absDistanceX > thresholdWidth2 || absDistanceZ > thresholdDepth2)
+        else if (absDistanceX > thresholdWidths[1] || absDistanceZ > thresholdDepths[1])
         {
-            GetComponent<MeshRenderer>().material = danger2;
-            Debug.Log("Zone3");
+            return danger2;
         }
-        else if (absDistanceX > thresholdWidth1 || absDistanceZ > thresholdDepth1)
+        else if (absDistanceX > thresholdWidths[0] || absDistanceZ > thresholdDepths[0])
         {
-            GetComponent<MeshRenderer>().material = danger1;
-            Debug.Log("Zone2");
+            return danger1;
         }
-        else
-        {
-            // Only apply the default material if none of the danger zones are triggered
-            GetComponent<MeshRenderer>().material = defaultMaterial;
-            Debug.Log("Zone1");
-        }
+        return defaultMaterial;
     }
 }
 
