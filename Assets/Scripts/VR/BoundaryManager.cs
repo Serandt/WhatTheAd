@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BoundaryManager : MonoBehaviour
@@ -9,11 +10,17 @@ public class BoundaryManager : MonoBehaviour
     public Material danger3;
 
 
-    public float threshold1 = 25f; 
-    public float threshold2 = 50f;
-    public float threshold3 = 75f;
+    private float thresholdWidth1;
+    private float thresholdWidth2;
+    private float thresholdWidth3;
 
-    private Vector3 maxDistances;
+    private float thresholdDepth1;
+    private float thresholdDepth2;
+    private float thresholdDepth3;
+
+    private float width;
+    private float depth;
+    private Vector3 surfaceCenter;
 
 
     private Vector3 currentPosition;
@@ -21,84 +28,61 @@ public class BoundaryManager : MonoBehaviour
     private void Start()
     {
         defaultMaterial = GetComponent<MeshRenderer>().material;
-        Bounds bounds = GetComponent<MeshFilter>().mesh.bounds;
-        maxDistances = bounds.extents;
+        Vector3 center = transform.position;
+        width = transform.localScale.x;
+        depth = transform.localScale.z;
+        surfaceCenter = new Vector3(center.x, center.y + transform.localScale.y / 2, center.z);
+
+        float widthIncrease = width / 4;
+        float depthIncrease = depth / 4;
+
+        thresholdWidth1 = widthIncrease;
+        thresholdWidth2 = widthIncrease * 2;
+        thresholdWidth3 = widthIncrease * 3;
+
+        thresholdDepth1 = depthIncrease;
+        thresholdDepth2 = depthIncrease * 2;
+        thresholdDepth3 = depthIncrease * 3;
+
+        Debug.Log(thresholdWidth1);
+        Debug.Log(thresholdWidth2);
+        Debug.Log(thresholdWidth3);
+
     }
 
     private void Update()
     {
-        /*  currentPosition = hmd.transform.position;
-
-          if (InZone(GameZone.Instance.zones[3]))
-          {
-              this.GetComponent<MeshRenderer>().material = defaultMaterial;
-          }
-          else if (InZone(GameZone.Instance.zones[2])
-              && !InZone(GameZone.Instance.zones[3]))
-          {
-              this.GetComponent<MeshRenderer>().material = danger1;
-          }
-          else if (InZone(GameZone.Instance.zones[1])
-              && !InZone(GameZone.Instance.zones[2])
-              && !InZone(GameZone.Instance.zones[3]))
-          {
-              this.GetComponent<MeshRenderer>().material = danger2;
-          }
-          else if (InZone(GameZone.Instance.zones[0])
-              && !InZone(GameZone.Instance.zones[1])
-              && !InZone(GameZone.Instance.zones[2])
-              && !InZone(GameZone.Instance.zones[3]))
-          {
-              this.GetComponent<MeshRenderer>().material = danger3;
-        
-    */
         currentPosition = hmd.transform.position;
-        Vector3 toPlayer = currentPosition - transform.position;
-        Vector3 distance = new Vector3(
-            Mathf.Abs(toPlayer.x),
-            Mathf.Abs(toPlayer.y),
-            Mathf.Abs(toPlayer.z)
-        );
+        Vector3 distanceToCenter = currentPosition - surfaceCenter;
+        float absDistanceX = Math.Abs(distanceToCenter.x);
+        float absDistanceZ = Math.Abs(distanceToCenter.z);
 
 
-        Vector3 distancePercentages = new Vector3(
-            distance.x / maxDistances.x,
-            distance.y / maxDistances.y,
-            distance.z / maxDistances.z
-        ) * 100;
 
-
-        float minDistancePercentage = Mathf.Min(distancePercentages.x, distancePercentages.z);
-
-
-        if (minDistancePercentage <= threshold1)
+        // Check the furthest thresholds first
+        if (absDistanceX > thresholdWidth3 || absDistanceZ > thresholdDepth3)
         {
-            this.GetComponent<MeshRenderer>().material = defaultMaterial;
+            GetComponent<MeshRenderer>().material = danger3;
+            Debug.Log("Zone4");
         }
-        else if (minDistancePercentage <= threshold2)
+        else if (absDistanceX > thresholdWidth2 || absDistanceZ > thresholdDepth2)
         {
-            this.GetComponent<MeshRenderer>().material = danger1;
-
+            GetComponent<MeshRenderer>().material = danger2;
+            Debug.Log("Zone3");
         }
-        else if (minDistancePercentage <= threshold3)
+        else if (absDistanceX > thresholdWidth1 || absDistanceZ > thresholdDepth1)
         {
-            this.GetComponent<MeshRenderer>().material = danger2;
+            GetComponent<MeshRenderer>().material = danger1;
+            Debug.Log("Zone2");
         }
         else
         {
-            this.GetComponent<MeshRenderer>().material = danger3;
+            // Only apply the default material if none of the danger zones are triggered
+            GetComponent<MeshRenderer>().material = defaultMaterial;
+            Debug.Log("Zone1");
         }
     }
 }
 
-   /* private bool InZone(Rect zone)
-    {
-        if (currentPosition.x > zone.x && currentPosition.z > zone.y
-            && currentPosition.x < zone.x + zone.width
-            && currentPosition.z < zone.y + zone.height)
-        {
-            return true;
-        }
-        return false;
-    }*/
+
 

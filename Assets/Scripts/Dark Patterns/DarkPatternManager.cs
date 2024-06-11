@@ -7,8 +7,8 @@ public class DarkPatternManager : MonoBehaviour
     public OVRCameraRig overCameraRig;
 
 
-    public float spawnTimer = 1.0f;
-    public float maxSpawns = 10;
+    public float spawnTimer = 60f;
+    public int maxSpawns = 10;
 
     private int spawnCount = 0;
     private float currentTimeSpawner;
@@ -24,6 +24,8 @@ public class DarkPatternManager : MonoBehaviour
         Instance = this;
     }
 
+
+
     public void Update()
     {
         currentTimeSpawner -= Time.deltaTime;
@@ -31,7 +33,7 @@ public class DarkPatternManager : MonoBehaviour
         if (currentTimeSpawner <= 0 && spawnCount < maxSpawns)
         {
             currentTimeSpawner = spawnTimer;
-            BoundaryZones.Instance.SpawnAd(proximityAd, 10, spawnCount);
+            
             spawnCount++;
         }
     }
@@ -40,6 +42,7 @@ public class DarkPatternManager : MonoBehaviour
     {
         currentTimeSpawner = spawnTimer;
         Vector3 cameraPos = GetCameraPos();
+        BoundaryZones.Instance.SpawnAd(proximityAd, maxSpawns, spawnCount);
     }
 
     public Vector3 GetCameraPos()
