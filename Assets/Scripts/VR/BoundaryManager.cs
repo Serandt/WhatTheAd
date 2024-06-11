@@ -8,7 +8,6 @@ public class BoundaryManager : MonoBehaviour
     public Material danger2;
     public Material danger3;
 
-    public Renderer cubeRenderer;
 
     public float threshold1 = 25f; 
     public float threshold2 = 50f;
@@ -69,7 +68,7 @@ public class BoundaryManager : MonoBehaviour
         ) * 100;
 
 
-        float minDistancePercentage = Mathf.Min(distancePercentages.x, distancePercentages.y, distancePercentages.z);
+        float minDistancePercentage = Mathf.Min(distancePercentages.x, distancePercentages.z);
 
 
         if (minDistancePercentage <= threshold1)
@@ -81,7 +80,7 @@ public class BoundaryManager : MonoBehaviour
             this.GetComponent<MeshRenderer>().material = danger1;
 
         }
-        else if (minDistancePercentage <= threshold2)
+        else if (minDistancePercentage <= threshold3)
         {
             this.GetComponent<MeshRenderer>().material = danger2;
         }
