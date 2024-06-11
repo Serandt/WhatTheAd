@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        score -= DarkPatternManager.Instance.activePatterns.Count;
+        scoreClock.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         playGame = false;
         condition = Condition.None;
         GameData.Instance.SaveData();

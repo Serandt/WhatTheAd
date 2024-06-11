@@ -15,7 +15,7 @@ public class DarkPatternManager : MonoBehaviour
 
     [SerializeField] private GameObject proximityAd;
 
-    public GameObject test;
+    public List<DarkPattern> activePatterns = new List<DarkPattern>();
 
     public static DarkPatternManager Instance;
 
@@ -31,7 +31,7 @@ public class DarkPatternManager : MonoBehaviour
         if (currentTimeSpawner <= 0 && spawnCount < maxSpawns)
         {
             currentTimeSpawner = spawnTimer;
-            BoundaryZones.Instance.SpawnAd(test, 10, spawnCount);
+            BoundaryZones.Instance.SpawnAd(proximityAd, 10, spawnCount);
             spawnCount++;
         }
     }

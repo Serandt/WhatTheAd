@@ -7,6 +7,10 @@ TagManager:
   - RedButton
   - Ball
   - Popup
+  - ConditionA
+  - DemoButton
+  - ConditionC
+  - ConditionB
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - Water
   - UI
   - IgnoreRaycastDuringDrag
-  - 
+  - ProximityAd
   - 
   - 
   - 
