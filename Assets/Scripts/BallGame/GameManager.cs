@@ -31,10 +31,10 @@ public class GameManager : MonoBehaviour
     public enum Condition
     {
         None,
-        Demo,
-        Sort,
-        Repeate,
-        Move
+        Tutorial,
+        Baseline,
+        Message,
+        Proximity
     }
 
     void Awake()
