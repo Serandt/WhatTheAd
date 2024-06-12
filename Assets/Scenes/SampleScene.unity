@@ -310,6 +310,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1633049886}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5679112963167615787, guid: 4c0ee7a14e52ba544b89c2f777670cca, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1684887931}
     - targetCorrespondingSourceObject: {fileID: 5679112963636671122, guid: 4c0ee7a14e52ba544b89c2f777670cca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1217753748}
@@ -379,7 +382,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5679112963167615785, guid: 4c0ee7a14e52ba544b89c2f777670cca, type: 3}
   m_PrefabInstance: {fileID: 95695486}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1684887930}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a379f34d4f4f2e408d34f14bfb753ce, type: 3}
@@ -2543,7 +2546,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreDisplay: {fileID: 1492982761}
   timeDisplay: {fileID: 2065255277}
-  distanceDisplay: {fileID: 0}
   LivesDisplay: {fileID: 1231369264}
   highscoresDisplay: {fileID: 1384877677}
   popupsDisplay: {fileID: 1350524696}
@@ -3755,6 +3757,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2130237515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1684887930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5679112963167615787, guid: 4c0ee7a14e52ba544b89c2f777670cca, type: 3}
+  m_PrefabInstance: {fileID: 95695486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1684887931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684887930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d0500e6f1bf744fb2734e0683ff7bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1769608843
 GameObject:
   m_ObjectHideFlags: 0
