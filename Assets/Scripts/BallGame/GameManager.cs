@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     public void AddScore()
     {
-        score *= Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count); 
+        score += 1 * Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count); 
         UpdateUI();
         if (!playTutorial)
             GameData.Instance.AddEvent(Time.time, true);
@@ -100,7 +100,8 @@ public class GameManager : MonoBehaviour
     public void AddError()
     {
         score--;
-        if(!playTutorial)
+        UpdateUI();
+        if (!playTutorial)
             GameData.Instance.AddEvent(Time.time, false);
     }
 
