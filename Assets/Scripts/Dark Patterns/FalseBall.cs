@@ -5,4 +5,5 @@ using UnityEngine;
 public class FalseBall : MonoBehaviour
 {
     public int id;
+    public GameObject obj;
 }

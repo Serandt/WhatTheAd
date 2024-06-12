@@ -66,6 +66,9 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         livesRemaining = playerLives;
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
+        highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {HighscoreManager.Instance.Highscore}";
+        StartGame(Condition.FalseFriend);
     }
 
     void Update()
@@ -115,9 +118,9 @@ public class GameManager : MonoBehaviour
         timeRemaining = gameTime;
         playGame = true;
         condition = cond;
-        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
+       
 
-        switch (condition)
+        switch (cond)
         {
             case Condition.Baseline:
                 DarkPatternManager.Instance.activeDarkPattern = null;
@@ -176,6 +179,7 @@ public class GameManager : MonoBehaviour
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         buttons.SetActive(true);
         timeRemaining = 0;
+        DarkPatternManager.Instance.spawnCount = 0;
 
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
         foreach(GameObject b in balls)

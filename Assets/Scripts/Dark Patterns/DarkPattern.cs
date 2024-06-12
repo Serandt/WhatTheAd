@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class DarkPattern : MonoBehaviour
 {
-    public int ID { get; private set; }
+    public int ID;
     public float SpawnTime { get; private set; }
     public float CloseTime { get; private set; }
     public bool IsClosed { get; private set; }

@@ -27,7 +27,8 @@ public class FalseFirend : DarkPattern
              + BallSpawner.Instance.gameObject.transform.position;
 
         Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
-        ballPrefab.GetComponent<FalseBall>().id = DarkPatternManager.Instance.spawnCount;
+        Debug.Log("ID: " + ID);
+        ballPrefab.GetComponent<FalseBall>().obj = this.gameObject;
     }
 
     public void SpawnBin()
