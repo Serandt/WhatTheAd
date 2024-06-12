@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
         livesRemaining = playerLives;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {HighscoreManager.Instance.Highscore}";
-        StartGame(Condition.FalseFriend);
     }
 
     void Update()

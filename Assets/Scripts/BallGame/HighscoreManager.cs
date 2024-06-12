@@ -16,7 +16,8 @@ public class HighscoreManager : MonoBehaviour
 
     public void LoadHighscore()
     {
-        Highscore = PlayerPrefs.GetInt(HighscoreKey, 0);
+
+        Highscore = PlayerPrefs.GetFloat(HighscoreKey, 0);
     }
 
     public void SaveHighscore(double newHighscore)
