@@ -15,6 +15,7 @@ public class DarkPatternManager : MonoBehaviour
 
     [SerializeField] private GameObject proximityAd;
     [SerializeField] private GameObject falseFriendAd;
+    [SerializeField] private GameObject messagePopUp;
 
     public List<DarkPattern> activePatterns = new List<DarkPattern>();
 
