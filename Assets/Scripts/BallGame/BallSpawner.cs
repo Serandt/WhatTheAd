@@ -13,6 +13,13 @@ public class BallSpawner : MonoBehaviour
     private float timeElapsed;
     private float lastSpawnTime;
 
+    public static BallSpawner Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         currentInterval = startInterval;

@@ -2852,8 +2852,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overCameraRig: {fileID: 2130237513}
   spawnTimer: 1
-  maxSpawns: 10
+  maxSpawns: 1
   proximityAd: {fileID: 8155342164835831404, guid: 324bb1338ad545e4fb0be827bdae76ef, type: 3}
+  falseFriendAd: {fileID: 909235477403101362, guid: ce45913c17bcc2b42923b620dfc98806, type: 3}
   activePatterns: []
 --- !u!1001 &854437597
 PrefabInstance:

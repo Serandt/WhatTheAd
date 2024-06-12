@@ -7,13 +7,14 @@ public class DarkPatternManager : MonoBehaviour
     public OVRCameraRig overCameraRig;
 
 
-    public float spawnTimer = 1f;
+    public float spawnTimer = 10f;
     public int maxSpawns = 10;
 
     private int spawnCount = 0;
     private float currentTimeSpawner;
 
     [SerializeField] private GameObject proximityAd;
+    [SerializeField] private GameObject falseFriendAd;
 
     public List<DarkPattern> activePatterns = new List<DarkPattern>();
 
@@ -32,7 +33,7 @@ public class DarkPatternManager : MonoBehaviour
 
         if (currentTimeSpawner <= 0 && spawnCount < maxSpawns)
         {
-            BoundaryZones.Instance.SpawnAd(proximityAd, maxSpawns, spawnCount);
+            BoundaryZones.Instance.SpawnAd(falseFriendAd, maxSpawns, spawnCount);
             currentTimeSpawner = spawnTimer;
             
             spawnCount++;
@@ -43,8 +44,6 @@ public class DarkPatternManager : MonoBehaviour
     {
         currentTimeSpawner = spawnTimer;
         Vector3 cameraPos = GetCameraPos();
-        BoundaryZones.Instance.SpawnAd(proximityAd, maxSpawns, spawnCount);
-        spawnCount++;
     }
 
     public Vector3 GetCameraPos()

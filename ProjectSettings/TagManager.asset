@@ -12,6 +12,8 @@ TagManager:
   - ConditionC
   - ConditionB
   - ProximityAd
+  - FalseFriend
+  - FalseBall
   layers:
   - Default
   - TransparentFX
