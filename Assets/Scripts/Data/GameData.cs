@@ -56,6 +56,11 @@ public class GameData : MonoBehaviour
     {
         Instance = this;
         playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
+        
+    }
+
+    public void SetPlayerID()
+    {
         SaveID(PlayerID + 1);
     }
 
@@ -110,16 +115,19 @@ public class GameData : MonoBehaviour
 
     public void SaveData()
     {
-        string json = JsonUtility.ToJson(dataWrapper, true);
-        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        string filePath = Path.Combine(Application.persistentDataPath, $"{playerName}_{timestamp}_GameData.json");
-        File.WriteAllText(filePath, json);
+        if(GameManager.Instance.condition != GameManager.Condition.Tutorial)
+        {
+            string json = JsonUtility.ToJson(dataWrapper, true);
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string filePath = Path.Combine(Application.persistentDataPath, $"{playerName}_{GameManager.Instance.condition.ToString()}_GameData.json");
+            File.WriteAllText(filePath, json);
+        }
         dataWrapper.gameEvents.Clear();
         dataWrapper.addDatas.Clear();
+        dataWrapper.boundaryCollisions.Clear();
+
+
     }
 
-    public List<GameEvent> GetGameEvents()
-    {
-        return dataWrapper.gameEvents;
-    }
+   
 }

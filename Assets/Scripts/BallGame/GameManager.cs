@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject LivesDisplay;
     public GameObject highscoresDisplay;
     public GameObject popupsDisplay;
+    public GameObject buttons;
 
     public static float gameTime = 20.0f;
 
@@ -25,8 +26,8 @@ public class GameManager : MonoBehaviour
     public bool playGame = false;
     public bool outOfBoundary = false;
 
-    private GameObject _buttons;
-    private Condition condition;
+    private int conditionCounter;
+    public Condition condition;
     public static int popupsCount = 0;
 
     public enum MaterialTag
@@ -42,7 +43,8 @@ public class GameManager : MonoBehaviour
         Tutorial,
         Baseline,
         Message,
-        Proximity
+        Proximity,
+        FalseFriend
     }
 
     void Awake()
@@ -60,11 +62,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         score = 0;
-        _buttons = GameObject.Find("Buttons");
         livesRemaining = playerLives;
-
-        //TODO: highscoresDisplay;
-        StartGame(Condition.None);
     }
 
     void Update()
@@ -111,26 +109,53 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(Condition cond)
     {
-        _buttons.SetActive(false);
+        buttons.SetActive(false);
         timeRemaining = gameTime;
         playGame = true;
         condition = cond;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
+
+        switch (condition)
+        {
+            case Condition.Baseline:
+                DarkPatternManager.Instance.activeDarkPattern = null;
+                break;
+            case Condition.FalseFriend:
+                DarkPatternManager.Instance.activeDarkPattern = DarkPatternManager.Instance.falseFriendAd;
+                break;
+            case Condition.Message:
+                DarkPatternManager.Instance.activeDarkPattern = DarkPatternManager.Instance.messagePopUpAd;
+                break;
+            case Condition.Proximity:
+                DarkPatternManager.Instance.activeDarkPattern = DarkPatternManager.Instance.proximityAd;
+                break;
+            case Condition.Tutorial:
+                PlayTutorial();
+                break;
+        }
     }
 
+    private void PlayTutorial()
+    {
+
+    }
     public void EndGame()
     { 
         foreach (var pattern in DarkPatternManager.Instance.activePatterns)
         {
             GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed); 
         }
-
+        conditionCounter++;
         playGame = false;
         condition = Condition.None;
         GameData.Instance.SaveData();
         HighscoreManager.Instance.SaveHighscore(score);
         ResetLives();
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
+        buttons.SetActive(true);
+
+        if(conditionCounter == 3)
+            GameData.Instance.SetPlayerID();
     }
 
     private string FormatTime(float timeInSeconds)

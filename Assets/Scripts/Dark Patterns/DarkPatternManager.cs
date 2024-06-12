@@ -13,11 +13,13 @@ public class DarkPatternManager : MonoBehaviour
     private int spawnCount = 0;
     private float currentTimeSpawner;
 
-    [SerializeField] private GameObject proximityAd;
-    [SerializeField] private GameObject falseFriendAd;
-    [SerializeField] private GameObject messagePopUp;
+    public GameObject proximityAd;
+    public GameObject falseFriendAd;
+    public GameObject messagePopUpAd;
 
     public List<DarkPattern> activePatterns = new List<DarkPattern>();
+
+    public GameObject activeDarkPattern;
 
     public static DarkPatternManager Instance;
 
@@ -32,9 +34,9 @@ public class DarkPatternManager : MonoBehaviour
     {
         currentTimeSpawner -= Time.deltaTime;
 
-        if (currentTimeSpawner <= 0 && spawnCount < maxSpawns)
+        if (currentTimeSpawner <= 0 && spawnCount < maxSpawns && activeDarkPattern != null)
         {
-            BoundaryZones.Instance.SpawnAd(falseFriendAd, maxSpawns, spawnCount);
+            BoundaryZones.Instance.SpawnAd(activeDarkPattern, maxSpawns, spawnCount);
             currentTimeSpawner = spawnTimer;
             
             spawnCount++;
@@ -60,5 +62,6 @@ public class DarkPatternManager : MonoBehaviour
   
         activePatterns.Remove(activePatterns.Find(item => item.ID == darkPattern.ID));
     }
+
 
 }

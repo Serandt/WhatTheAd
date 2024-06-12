@@ -34,7 +34,7 @@ public class GuardianController : MonoBehaviour
                 if (result.IsTriggering)
                 {
                     Debug.Log("Player is colliding with the Guardian boundary at " + result.ClosestPoint);
-                    GameManager.Instance.StartGame(GameManager.Condition.None);
+     
                     GameManager.Instance.distanceDisplay.GetComponent<TextMeshPro>().text = "Collision";
                 }
                 else

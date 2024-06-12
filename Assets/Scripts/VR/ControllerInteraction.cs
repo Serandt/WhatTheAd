@@ -3,6 +3,7 @@ using UnityEngine;
 public class ControllerInteraction : MonoBehaviour
 {
     private GameManager.Condition cond;
+    public GameObject buttons;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -10,12 +11,7 @@ public class ControllerInteraction : MonoBehaviour
         {
             cond = other.gameObject.GetComponent<RedButton>().cond;
 
-            if (cond != GameManager.Condition.None)
-            {
-                GameManager.Instance.StartGame(cond);
-                other.gameObject.GetComponent<RedButton>().PopUps.SetActive(true);
-                Destroy(other.gameObject);
-            }
+            GameManager.Instance.StartGame(cond);
         }
 
         if (other.CompareTag("ProximityAd")|| other.CompareTag("Popup")) 
