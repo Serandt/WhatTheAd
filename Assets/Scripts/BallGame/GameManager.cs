@@ -165,39 +165,55 @@ public class GameManager : MonoBehaviour
     { 
         foreach (var pattern in DarkPatternManager.Instance.activePatterns)
         {
-            if(!playTutorial)
-                GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed); 
-        }
-        if (!playTutorial)
-            conditionCounter++;
+            if (!playTutorial){
+                GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed);
+                GameData.Instance.SaveData();
+                HighscoreManager.Instance.SaveHighscore(score);
+                conditionCounter++;
+            }
+               
+        }  
         playGame = false;
         condition = Condition.None;
-        GameData.Instance.SaveData();
-        HighscoreManager.Instance.SaveHighscore(score);
+        
         ResetLives();
-        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         buttons.SetActive(true);
         timeRemaining = 0;
         DarkPatternManager.Instance.spawnCount = 0;
 
-        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-        foreach(GameObject b in balls)
-        {
-            Destroy(b);
-        }
-        DarkPatternManager.Instance.ClearDarkPatterns();
+        DeleteObjects();
+     
 
         if (conditionCounter == 3)
         {
             GameData.Instance.SetPlayerID();
             conditionCounter = 0;
         }
+
+
         score = 0;
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
         popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {0} {Environment.NewLine} Points for ball: {Math.Pow(.5f, 0)}";
+    }
+
+    private void DeleteObjects()
+    {
+        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+        balls.AddRange(GameObject.FindGameObjectsWithTag("FalseBall"));
+        balls.AddRange(GameObject.FindGameObjectsWithTag("Bin"));
+        balls.AddRange(GameObject.FindGameObjectsWithTag("FalseFriend"));
+        balls.AddRange(GameObject.FindGameObjectsWithTag("Popup"));
+        balls.AddRange(GameObject.FindGameObjectsWithTag("ProximityAd"));
+        foreach (GameObject b in balls)
+        {
+            Destroy(b);
+        }
 
 
+
+        DarkPatternManager.Instance.activePatterns.Clear(); 
     }
 
     private string FormatTime(float timeInSeconds)

@@ -16,6 +16,7 @@ TagManager:
   - FalseBall
   - TutorialButton
   - TutorialAd
+  - Bin
   layers:
   - Default
   - TransparentFX

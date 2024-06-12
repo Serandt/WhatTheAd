@@ -43,11 +43,7 @@ public class ProximityPattern : DarkPattern
     }
 }
 
-    protected override void OnClose()
-    {
-        base.OnClose();
-        Debug.Log("Proximity Ad closed.");
-    }
-}
+  
+
 
 
