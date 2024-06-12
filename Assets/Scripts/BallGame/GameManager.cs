@@ -153,6 +153,7 @@ public class GameManager : MonoBehaviour
                 Destroy(b);
             }
             DarkPatternManager.Instance.activePatterns.Clear();
+            DarkPatternManager.Instance.ClearDarkPatterns();
         }
         else
         {
@@ -189,7 +190,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(b);
         }
-        DarkPatternManager.Instance.activePatterns.Clear();
+        DarkPatternManager.Instance.ClearDarkPatterns();
 
         if (conditionCounter == 3)
         {

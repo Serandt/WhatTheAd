@@ -65,5 +65,14 @@ public class DarkPatternManager : MonoBehaviour
         activePatterns.Remove(activePatterns.Find(item => item.ID == darkPattern.ID));
     }
 
+    public void ClearDarkPatterns()
+    {
+        foreach(DarkPattern d in activePatterns)
+        {
+            Destroy(d.GameObject);
+        }
+        activePatterns.Clear();
+    }
+
 
 }
