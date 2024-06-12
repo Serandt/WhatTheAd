@@ -17,7 +17,7 @@ public class BallManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.popupsCount > 0)
+        if (GameManager.Instance.popupsCount > 0)
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }

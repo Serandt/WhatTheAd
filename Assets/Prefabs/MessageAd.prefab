@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5553076749485373868}
   - component: {fileID: 5560975805115633557}
   - component: {fileID: 4810975318026442338}
+  - component: {fileID: 5857901747502309184}
   - component: {fileID: 5753023484858990376}
   m_Layer: 0
   m_Name: MessageAd
@@ -171,6 +172,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5857901747502309184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733979315757727928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcca66f2f009fae4f9b2b993a59ea764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObject: {fileID: 0}
 --- !u!65 &5753023484858990376
 BoxCollider:
   m_ObjectHideFlags: 0

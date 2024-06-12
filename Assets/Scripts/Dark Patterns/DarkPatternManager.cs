@@ -38,7 +38,7 @@ public class DarkPatternManager : MonoBehaviour
         {
             BoundaryZones.Instance.SpawnAd(activeDarkPattern, maxSpawns, spawnCount);
             currentTimeSpawner = spawnTimer;
-            
+            GameManager.Instance.popupsCount++;
             spawnCount++;
         }
     }
@@ -59,7 +59,7 @@ public class DarkPatternManager : MonoBehaviour
     {
         DarkPattern darkPattern = obj.GetComponent<DarkPattern>();
         darkPattern.Close();
-  
+        GameManager.Instance.popupsCount--;
         activePatterns.Remove(activePatterns.Find(item => item.ID == darkPattern.ID));
     }
 

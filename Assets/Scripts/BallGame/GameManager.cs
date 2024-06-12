@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private int conditionCounter;
     public Condition condition;
-    public static int popupsCount = 0;
+    public int popupsCount = 0;
 
     public enum MaterialTag
     {
@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         livesRemaining = playerLives;
+        StartGame(Condition.Message);
     }
 
     void Update()
