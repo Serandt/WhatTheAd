@@ -37,6 +37,9 @@ public class GameDataWrapper
 
 public class GameData : MonoBehaviour
 {
+    private const string PlayerIDKey = "PlayerID";
+    public int PlayerID { get; private set; }
+
     public static GameData Instance;
 
     private GameDataWrapper dataWrapper = new GameDataWrapper
@@ -51,13 +54,27 @@ public class GameData : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        playerName = "Player";
+        playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
+        SaveID(PlayerID + 1);
     }
 
-    public void SetPlayerName(string name)
+    public void SaveID(int newId)
     {
-        playerName = name;
+        if (newId > PlayerID)
+        {
+            PlayerID = newId;
+            PlayerPrefs.SetInt(PlayerIDKey, PlayerID);
+            PlayerPrefs.Save();
+        }
     }
+
+    public void ResetHighscore()
+    {
+        PlayerID = 0;
+        PlayerPrefs.SetFloat(PlayerIDKey, PlayerID);
+        PlayerPrefs.Save();
+    }
+
 
     public void AddEvent(float timestamp, bool isPoint)
     {
