@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
         objects.AddRange(GameObject.FindGameObjectsWithTag("FalseFriend"));
         objects.AddRange(GameObject.FindGameObjectsWithTag("Popup"));
         objects.AddRange(GameObject.FindGameObjectsWithTag("ProximityAd"));
+        objects.AddRange(GameObject.FindGameObjectsWithTag("TutorialAd"));
 
         foreach (GameObject b in objects)
         {
