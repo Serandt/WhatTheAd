@@ -180,7 +180,12 @@ public class GameManager : MonoBehaviour
         buttons.SetActive(true);
 
         if(conditionCounter == 3)
+        {
             GameData.Instance.SetPlayerID();
+            conditionCounter = 0;
+        }
+            
+            
     }
 
     private string FormatTime(float timeInSeconds)
