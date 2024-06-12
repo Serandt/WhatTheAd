@@ -2053,8 +2053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overCameraRig: {fileID: 2130237513}
-  spawnTimer: 1
-  maxSpawns: 1
+  spawnTimer: 30
+  maxSpawns: 6
   proximityAd: {fileID: 2209216276620250037, guid: c11e49ff0b9a66d44bbc6ab67606c726, type: 3}
   falseFriendAd: {fileID: 909235477403101362, guid: ce45913c17bcc2b42923b620dfc98806, type: 3}
   messagePopUpAd: {fileID: 1733979315757727928, guid: 0e3e6389202a15b4abd288673eeb63ea, type: 3}
