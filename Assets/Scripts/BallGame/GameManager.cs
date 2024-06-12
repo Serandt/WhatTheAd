@@ -166,7 +166,8 @@ public class GameManager : MonoBehaviour
             if(!playTutorial)
                 GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed); 
         }
-        conditionCounter++;
+        if (!playTutorial)
+            conditionCounter++;
         playGame = false;
         condition = Condition.None;
         GameData.Instance.SaveData();
