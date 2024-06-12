@@ -200,7 +200,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Over");
             LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {livesRemaining}{Environment.NewLine}You lost... {Environment.NewLine}Reseting Score";
             ResetLives();
-            score = 0;
+            if (score > 0)
+                score = 0;
             Invoke("ResetGameOverMessage", 5f);
         }
     }

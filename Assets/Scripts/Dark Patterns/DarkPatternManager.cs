@@ -10,7 +10,8 @@ public class DarkPatternManager : MonoBehaviour
     public float spawnTimer = 10f;
     public int maxSpawns = 10;
 
-    private int spawnCount = 0;
+    public int spawnCount = 0;
+
     private float currentTimeSpawner;
 
     public GameObject proximityAd;
