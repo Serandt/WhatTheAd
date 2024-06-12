@@ -138,22 +138,13 @@ public class GameManager : MonoBehaviour
     {
         if(playTutorial == true)
         {
-            playGame = false;
-            playTutorial = false;
-            condition = Condition.None;
-            ResetLives();
-            LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
             for (int i = 1; i < buttons.transform.childCount; i++)
             {
                 buttons.transform.GetChild(i).gameObject.SetActive(true);
             }
-            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-            foreach (GameObject b in balls)
-            {
-                Destroy(b);
-            }
-            DarkPatternManager.Instance.activePatterns.Clear();
-            DarkPatternManager.Instance.ClearDarkPatterns();
+            EndGame();
+            playTutorial = false;
+        
         }
         else
         {
@@ -197,8 +188,12 @@ public class GameManager : MonoBehaviour
             GameData.Instance.SetPlayerID();
             conditionCounter = 0;
         }
-            
-            
+        score = 0;
+        scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
+        timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
+        popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {0} {Environment.NewLine} Points for ball: {Math.Pow(.5f, 0)}";
+
+
     }
 
     private string FormatTime(float timeInSeconds)
