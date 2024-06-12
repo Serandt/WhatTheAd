@@ -13,6 +13,7 @@ public class GameEvent
 [System.Serializable]
 public class AddData
 {
+    public int id;
     public float spawnTime;
     public float closeTime;
     public bool isClosed;
@@ -23,6 +24,7 @@ public class BoundaryCollision
 {
     public float timestamp;
     public int count;
+    public bool isHead;  //true if head, false if hand
 }
 
 [System.Serializable]
@@ -66,22 +68,24 @@ public class GameData : MonoBehaviour
         });
     }
 
-    public void AddAdData(float spawnTime, float closeTime, bool isClosed)
+    public void AddAdData(int id, float spawnTime, float closeTime, bool isClosed)
     {
         dataWrapper.addDatas.Add(new AddData
         {
+            id = id,
             spawnTime = spawnTime,
             closeTime = closeTime,
             isClosed = isClosed
         });
     }
 
-    public void AddBoundaryCollision(float timestamp, int count)
+    public void AddBoundaryCollision(float timestamp, int count, bool isHead)
     {
         dataWrapper.boundaryCollisions.Add(new BoundaryCollision
         {
             timestamp = timestamp,
-            count = count
+            count = count,
+            isHead = isHead
         });
     }
 

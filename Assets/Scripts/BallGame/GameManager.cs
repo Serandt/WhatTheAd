@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
     { 
         foreach (var pattern in DarkPatternManager.Instance.activePatterns)
         {
-            GameData.Instance.AddAdData(pattern.SpawnTime, float.NaN, pattern.IsClosed); 
+            GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed); 
         }
 
         playGame = false;
