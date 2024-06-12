@@ -24,7 +24,8 @@ public class BoundaryCollision
 {
     public float timestamp;
     public int count;
-    public bool isHead;  //true if head, false if hand
+    public bool isHead;
+    public bool isHand;
 }
 
 [System.Serializable]
@@ -96,13 +97,14 @@ public class GameData : MonoBehaviour
         });
     }
 
-    public void AddBoundaryCollision(float timestamp, int count, bool isHead)
+    public void AddBoundaryCollision(float timestamp, int count, bool isHead, bool isHand)
     {
         dataWrapper.boundaryCollisions.Add(new BoundaryCollision
         {
             timestamp = timestamp,
             count = count,
-            isHead = isHead
+            isHead = isHead,
+            isHand = isHand
         });
     }
 

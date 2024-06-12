@@ -18,6 +18,8 @@ public class BoundaryManager : MonoBehaviour
     private Vector3 surfaceCenter;
     private MeshRenderer meshRenderer;
 
+    private int collideWithBoundaryCounter = 0;
+
     private void Start()
     {
         // Cache the MeshRenderer component at start
@@ -78,6 +80,9 @@ public class BoundaryManager : MonoBehaviour
     {
         if (OutsideBoundary(hmd) || OutsideBoundary(leftController) || OutsideBoundary(rightController))
         {
+
+            SaveBoundaryCollision();
+
             if (!GameManager.Instance.outOfBoundary)
             {
                 OnLeaveZone();
@@ -98,6 +103,23 @@ public class BoundaryManager : MonoBehaviour
     {
         GameManager.Instance.outOfBoundary = true;
         GameManager.Instance.RemoveLive();
+    }
+
+    void SaveBoundaryCollision()
+    {
+        collideWithBoundaryCounter += 1;
+        if (OutsideBoundary(hmd) && OutsideBoundary(leftController) && OutsideBoundary(rightController))
+        {
+            GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, true, true);
+        }
+        else if (OutsideBoundary(leftController) || OutsideBoundary(rightController))
+        {
+            GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, false, true);
+        }
+        else
+        {
+            GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, true, false);
+        }
     }
 }
 
