@@ -3,7 +3,6 @@ using UnityEngine;
 public class ControllerInteraction : MonoBehaviour
 {
     private GameManager.Condition cond;
-    public GameObject buttons;
 
     private void OnTriggerEnter(Collider other)
     {
