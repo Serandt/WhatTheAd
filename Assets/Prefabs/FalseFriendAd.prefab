@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2145304191676616943}
   m_Layer: 0
   m_Name: FalseFriendAd
-  m_TagString: Untagged
+  m_TagString: FalseFriend
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

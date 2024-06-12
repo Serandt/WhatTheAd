@@ -28,7 +28,14 @@ public class GameManager : MonoBehaviour
 
     private int conditionCounter;
     public Condition condition;
+<<<<<<< Updated upstream
     public int popupsCount = 0;
+=======
+    public static int popupsCount = 0;
+    public bool playTutorial = false;
+
+    
+>>>>>>> Stashed changes
 
     public enum MaterialTag
     {
@@ -63,7 +70,11 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         livesRemaining = playerLives;
+<<<<<<< Updated upstream
         StartGame(Condition.Message);
+=======
+        PlayTutorial();
+>>>>>>> Stashed changes
     }
 
     void Update()
@@ -90,14 +101,15 @@ public class GameManager : MonoBehaviour
     {
         score *= Math.Pow(.5f, popupsCount); ;
         UpdateUI();
-
-        GameData.Instance.AddEvent(Time.time, true);
+        if (!playTutorial)
+            GameData.Instance.AddEvent(Time.time, true);
     }
 
     public void AddError()
     {
         score--;
-        GameData.Instance.AddEvent(Time.time, false);
+        if(!playTutorial)
+            GameData.Instance.AddEvent(Time.time, false);
     }
 
     void UpdateUI()
@@ -130,21 +142,41 @@ public class GameManager : MonoBehaviour
             case Condition.Proximity:
                 DarkPatternManager.Instance.activeDarkPattern = DarkPatternManager.Instance.proximityAd;
                 break;
-            case Condition.Tutorial:
-                PlayTutorial();
-                break;
         }
     }
 
-    private void PlayTutorial()
+    public void PlayTutorial()
     {
-
+        if(playTutorial == true)
+        {
+            playGame = false;
+            playTutorial = true;
+            condition = Condition.None;
+            ResetLives();
+            LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
+            for (int i = 1; i < buttons.transform.childCount; i++)
+            {
+                buttons.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            playTutorial = true;
+            DarkPatternManager.Instance.activeDarkPattern = DarkPatternManager.Instance.tutorialAd;
+            timeRemaining = 60 * 20;
+            for (int i = 1; i < buttons.transform.childCount; i++)
+            {
+                buttons.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
     }
+
     public void EndGame()
     { 
         foreach (var pattern in DarkPatternManager.Instance.activePatterns)
         {
-            GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed); 
+            if(!playTutorial)
+                GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed); 
         }
         conditionCounter++;
         playGame = false;

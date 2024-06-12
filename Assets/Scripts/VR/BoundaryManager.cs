@@ -107,19 +107,23 @@ public class BoundaryManager : MonoBehaviour
 
     void SaveBoundaryCollision()
     {
-        collideWithBoundaryCounter += 1;
-        if (OutsideBoundary(hmd) && OutsideBoundary(leftController) && OutsideBoundary(rightController))
+        if (!GameManager.Instance.playTutorial)
         {
-            GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, true, true);
+            collideWithBoundaryCounter += 1;
+            if (OutsideBoundary(hmd) && OutsideBoundary(leftController) && OutsideBoundary(rightController))
+            {
+                GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, true, true);
+            }
+            else if (OutsideBoundary(leftController) || OutsideBoundary(rightController))
+            {
+                GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, false, true);
+            }
+            else
+            {
+                GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, true, false);
+            }
         }
-        else if (OutsideBoundary(leftController) || OutsideBoundary(rightController))
-        {
-            GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, false, true);
-        }
-        else
-        {
-            GameData.Instance.AddBoundaryCollision(Time.deltaTime, collideWithBoundaryCounter, true, false);
-        }
+       
     }
 }
 

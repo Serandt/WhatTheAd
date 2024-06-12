@@ -16,6 +16,7 @@ public class DarkPatternManager : MonoBehaviour
     public GameObject proximityAd;
     public GameObject falseFriendAd;
     public GameObject messagePopUpAd;
+    public GameObject tutorialAd;
 
     public List<DarkPattern> activePatterns = new List<DarkPattern>();
 

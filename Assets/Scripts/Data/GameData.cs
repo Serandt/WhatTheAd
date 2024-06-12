@@ -74,7 +74,7 @@ public class GameData : MonoBehaviour
         }
     }
 
-    public void ResetHighscore()
+    public void ResetPlayerID()
     {
         PlayerID = 0;
         PlayerPrefs.SetFloat(PlayerIDKey, PlayerID);

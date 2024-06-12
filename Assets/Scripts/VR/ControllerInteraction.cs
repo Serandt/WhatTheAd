@@ -13,8 +13,14 @@ public class ControllerInteraction : MonoBehaviour
 
             GameManager.Instance.StartGame(cond);
         }
+        if (other.CompareTag("TutorialButton"))
+        {
+            cond = other.gameObject.GetComponent<RedButton>().cond;
 
-        if (other.CompareTag("ProximityAd")|| other.CompareTag("Popup")) 
+            GameManager.Instance.PlayTutorial(); ;
+        }
+
+        if (other.CompareTag("ProximityAd")|| other.CompareTag("Popup") || other.CompareTag("TutorialAd")) 
         {
             DarkPatternManager.Instance.removeDarkPatternFromList(other.gameObject);
         }
