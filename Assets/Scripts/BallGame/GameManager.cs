@@ -91,7 +91,6 @@ public class GameManager : MonoBehaviour
     public void AddScore()
     {
         score += 1 * Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count); 
-        UpdateUI();
         if (!playTutorial)
             GameData.Instance.AddEvent(Time.time, true);
     }
@@ -99,7 +98,6 @@ public class GameManager : MonoBehaviour
     public void AddError()
     {
         score--;
-        UpdateUI();
         if (!playTutorial)
             GameData.Instance.AddEvent(Time.time, false);
     }
@@ -141,7 +139,7 @@ public class GameManager : MonoBehaviour
         if(playTutorial == true)
         {
             playGame = false;
-            playTutorial = true;
+            playTutorial = false;
             condition = Condition.None;
             ResetLives();
             LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
@@ -153,8 +151,9 @@ public class GameManager : MonoBehaviour
         else
         {
             playTutorial = true;
+            playGame = true;
             DarkPatternManager.Instance.activeDarkPattern = DarkPatternManager.Instance.tutorialAd;
-            timeRemaining = 60 * 20;
+            timeRemaining = gameTime * 5;
             for (int i = 1; i < buttons.transform.childCount; i++)
             {
                 buttons.transform.GetChild(i).gameObject.SetActive(false);
