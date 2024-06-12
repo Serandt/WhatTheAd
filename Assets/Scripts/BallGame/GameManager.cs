@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -200,18 +201,20 @@ public class GameManager : MonoBehaviour
 
     private void DeleteObjects()
     {
-        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-        balls.AddRange(GameObject.FindGameObjectsWithTag("FalseBall"));
-        balls.AddRange(GameObject.FindGameObjectsWithTag("Bin"));
-        balls.AddRange(GameObject.FindGameObjectsWithTag("FalseFriend"));
-        balls.AddRange(GameObject.FindGameObjectsWithTag("Popup"));
-        balls.AddRange(GameObject.FindGameObjectsWithTag("ProximityAd"));
-        foreach (GameObject b in balls)
+        List<GameObject> objects = new List<GameObject>(); // Erstellen einer Liste anstelle eines Arrays
+
+        // Hinzufügen der GameObjects zu der Liste
+        objects.AddRange(GameObject.FindGameObjectsWithTag("Ball"));
+        objects.AddRange(GameObject.FindGameObjectsWithTag("FalseBall"));
+        objects.AddRange(GameObject.FindGameObjectsWithTag("Bin"));
+        objects.AddRange(GameObject.FindGameObjectsWithTag("FalseFriend"));
+        objects.AddRange(GameObject.FindGameObjectsWithTag("Popup"));
+        objects.AddRange(GameObject.FindGameObjectsWithTag("ProximityAd"));
+
+        foreach (GameObject b in objects)
         {
             Destroy(b);
         }
-
-
 
         DarkPatternManager.Instance.activePatterns.Clear(); 
     }
