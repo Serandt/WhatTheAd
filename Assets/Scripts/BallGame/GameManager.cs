@@ -147,6 +147,12 @@ public class GameManager : MonoBehaviour
             {
                 buttons.transform.GetChild(i).gameObject.SetActive(true);
             }
+            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+            foreach (GameObject b in balls)
+            {
+                Destroy(b);
+            }
+            DarkPatternManager.Instance.activePatterns.Clear();
         }
         else
         {
@@ -176,8 +182,16 @@ public class GameManager : MonoBehaviour
         ResetLives();
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         buttons.SetActive(true);
+        timeRemaining = 0;
 
-        if(conditionCounter == 3)
+        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+        foreach(GameObject b in balls)
+        {
+            Destroy(b);
+        }
+        DarkPatternManager.Instance.activePatterns.Clear();
+
+        if (conditionCounter == 3)
         {
             GameData.Instance.SetPlayerID();
             conditionCounter = 0;
