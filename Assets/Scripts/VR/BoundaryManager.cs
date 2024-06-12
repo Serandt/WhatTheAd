@@ -1,9 +1,12 @@
 using System;
+using Oculus.Interaction;
 using UnityEngine;
 
 public class BoundaryManager : MonoBehaviour
 {
-    public GameObject hmd;
+    public Transform hmd;
+    public Transform rightController;
+    public Transform leftController;
     private Material defaultMaterial;
     public Material danger1;
     public Material danger2;
@@ -50,6 +53,8 @@ public class BoundaryManager : MonoBehaviour
         {
             meshRenderer.material = newMaterial;
         }
+
+        CheckIfOutsideZone();
     }
 
     private Material DetermineMaterial(float absDistanceX, float absDistanceZ)
@@ -67,6 +72,32 @@ public class BoundaryManager : MonoBehaviour
             return danger1;
         }
         return defaultMaterial;
+    }
+
+    void CheckIfOutsideZone()
+    {
+        if (OutsideBoundary(hmd) || OutsideBoundary(leftController) || OutsideBoundary(rightController))
+        {
+            if (!GameManager.Instance.outOfBoundary)
+            {
+                OnLeaveZone();
+            }
+        }
+        else
+        {
+            GameManager.Instance.outOfBoundary = false;
+        }
+    }
+
+    bool OutsideBoundary(Transform transform)
+    {
+        return !this.GetComponent<Collider>().bounds.Contains(transform.position);
+    }
+
+    void OnLeaveZone()
+    {
+        GameManager.Instance.outOfBoundary = true;
+        GameManager.Instance.RemoveLive();
     }
 }
 

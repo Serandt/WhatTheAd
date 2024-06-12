@@ -1117,10 +1117,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FakeBoundaries
       objectReference: {fileID: 0}
+    - target: {fileID: 7832349645707252945, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8268984825401876032, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
       propertyPath: hmd
       value: 
-      objectReference: {fileID: 1080583595}
+      objectReference: {fileID: 1080583598}
     - target: {fileID: 8268984825401876032, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
       propertyPath: danger3
       value: 
@@ -1129,6 +1133,14 @@ PrefabInstance:
       propertyPath: cubeRenderer
       value: 
       objectReference: {fileID: 287521501}
+    - target: {fileID: 8268984825401876032, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+      propertyPath: leftController
+      value: 
+      objectReference: {fileID: 2130237517}
+    - target: {fileID: 8268984825401876032, guid: d9b9274f0fad17d49af66b23789ab318, type: 3}
+      propertyPath: rightController
+      value: 
+      objectReference: {fileID: 2130237516}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3197,9 +3209,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1733979315757727928, guid: 0e3e6389202a15b4abd288673eeb63ea, type: 3}
   m_PrefabInstance: {fileID: 1015594722}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1080583595 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+--- !u!4 &1080583598 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
   m_PrefabInstance: {fileID: 2130237512}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1089695605
@@ -3773,7 +3785,9 @@ MonoBehaviour:
   highscoresDisplay: {fileID: 1384877677}
   popupsDisplay: {fileID: 1350524696}
   playerLives: 3
+  livesRemaining: 0
   playGame: 0
+  outOfBoundary: 0
 --- !u!1 &1350524696
 GameObject:
   m_ObjectHideFlags: 0

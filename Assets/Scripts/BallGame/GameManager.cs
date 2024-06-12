@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -17,10 +18,12 @@ public class GameManager : MonoBehaviour
     public static float gameTime = 20.0f;
 
     public int playerLives = 3;
+    public int livesRemaining;
 
     private double score;
     public static float timeRemaining = -100;
     public bool playGame = false;
+    public bool outOfBoundary = false;
 
     private GameObject _buttons;
     private Condition condition;
@@ -58,9 +61,10 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         _buttons = GameObject.Find("Buttons");
-        StartGame(Condition.None);
+        livesRemaining = playerLives;
 
         //TODO: highscoresDisplay;
+        StartGame(Condition.None);
     }
 
     void Update()
@@ -111,6 +115,7 @@ public class GameManager : MonoBehaviour
         timeRemaining = gameTime;
         playGame = true;
         condition = cond;
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
     }
 
     public void EndGame()
@@ -124,7 +129,7 @@ public class GameManager : MonoBehaviour
         condition = Condition.None;
         GameData.Instance.SaveData();
         HighscoreManager.Instance.SaveHighscore(score);
-        playerLives = 3;
+        ResetLives();
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
     }
 
@@ -136,15 +141,27 @@ public class GameManager : MonoBehaviour
 
     public void RemoveLive()
     {
-        playerLives--;
-        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
-        Debug.Log("Lives: " + playerLives);
+        livesRemaining--;
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {livesRemaining}";
+        Debug.Log("Lives: " + livesRemaining);
 
-        if(playerLives == 0)
+        if(livesRemaining == 0)
         {
             Debug.Log("Game Over");
+            LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {livesRemaining}{Environment.NewLine}You lost... {Environment.NewLine}Reseting Score";
+            ResetLives();
             score = 0;
+            Invoke("ResetGameOverMessage", 5f);
         }
     }
 
+    private void ResetLives()
+    {
+        livesRemaining = playerLives;
+    }
+
+    private void ResetGameOverMessage()
+    {
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {livesRemaining}";
+    }
 }
