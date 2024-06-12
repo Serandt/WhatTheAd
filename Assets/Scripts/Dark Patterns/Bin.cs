@@ -9,7 +9,7 @@ public class Bin : MonoBehaviour
        
         if (other.CompareTag("FalseBall"))
         {
-            DarkPatternManager.Instance.removeDarkPatternFromList(DarkPatternManager.Instance.activePatterns.Find(item => item.ID == other.GetComponent<FalseBall>().id).gameObject);
+            DarkPatternManager.Instance.removeDarkPatternFromList(DarkPatternManager.Instance.activePatterns.Find(item => item.ID == other.GetComponent<FalseBall>().id).GameObject);
             Destroy(this.gameObject);
             Destroy(other.gameObject);
         }
