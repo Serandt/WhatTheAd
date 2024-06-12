@@ -15,17 +15,7 @@ public class BallManager : MonoBehaviour
         SetRandomMaterial();
     }
 
-    private void Update()
-    {
-        if (GameManager.Instance.popupsCount > 0)
-        {
-            transform.GetChild(0).gameObject.SetActive(false);
-        }
-        else
-        {
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
-    }
+
 
     public void SetRandomMaterial()
     {

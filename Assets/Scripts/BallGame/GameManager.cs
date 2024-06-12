@@ -28,14 +28,10 @@ public class GameManager : MonoBehaviour
 
     private int conditionCounter;
     public Condition condition;
-<<<<<<< Updated upstream
-    public int popupsCount = 0;
-=======
-    public static int popupsCount = 0;
+
     public bool playTutorial = false;
 
-    
->>>>>>> Stashed changes
+
 
     public enum MaterialTag
     {
@@ -70,11 +66,9 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         livesRemaining = playerLives;
-<<<<<<< Updated upstream
-        StartGame(Condition.Message);
-=======
+
         PlayTutorial();
->>>>>>> Stashed changes
+
     }
 
     void Update()
@@ -99,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void AddScore()
     {
-        score *= Math.Pow(.5f, popupsCount); ;
+        score *= Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count); 
         UpdateUI();
         if (!playTutorial)
             GameData.Instance.AddEvent(Time.time, true);
@@ -116,7 +110,7 @@ public class GameManager : MonoBehaviour
     {
         scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
-        popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {popupsCount} {Environment.NewLine} Points for ball: {Math.Pow(.5f, popupsCount)}";
+        popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {DarkPatternManager.Instance.activePatterns.Count} {Environment.NewLine} Points for ball: {Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count)}";
         //TODO: distanceDisplay;
     }
 
