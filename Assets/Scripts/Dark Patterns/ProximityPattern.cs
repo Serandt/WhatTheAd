@@ -20,24 +20,28 @@ public class ProximityPattern : DarkPattern
     {
         float distance = Vector3.Distance(transform.position, DarkPatternManager.Instance.GetCameraPos());
         
-        if (distance < fleeDistance)
+       /* if (distance < fleeDistance)
         {
             Vector3 directionToPlayer = transform.position - DarkPatternManager.Instance.GetCameraPos();
             agent.SetDestination(directionToPlayer);
-        }
-
-        /*if (distance < fleeDistance)
-        {
-            Vector3 fleeDirection = (transform.position - DarkPatternManager.Instance.GetCameraPos()).normalized;
-            Vector3 fleePoint = transform.position + fleeDirection;// * fleeDistance * fleeMultiplier;
-
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(fleePoint, out hit, fleeDistance * fleeMultiplier, NavMesh.AllAreas))
-            {
-                agent.SetDestination(directionToPlayer);
-            }
         }*/
+
+   
+
+        if (distance < fleeDistance)
+        {
+            Vector3 directionToPlayer = transform.position - DarkPatternManager.Instance.GetCameraPos();
+            directionToPlayer.Normalize();  
+            Vector3 fleeDestination = transform.position + directionToPlayer * fleeDistance;  
+
+            
+            if (NavMesh.SamplePosition(fleeDestination, out NavMeshHit hit, fleeDistance, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+        }
     }
+}
 
     protected override void OnClose()
     {
