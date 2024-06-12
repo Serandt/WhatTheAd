@@ -36,7 +36,7 @@ public class DarkPatternManager : MonoBehaviour
     {
         currentTimeSpawner -= Time.deltaTime;
 
-        if (currentTimeSpawner <= 0 && spawnCount < maxSpawns && activeDarkPattern != null)
+        if (currentTimeSpawner <= 0 && spawnCount < maxSpawns && activeDarkPattern != null && GameManager.Instance.playGame)
         {
             BoundaryZones.Instance.SpawnAd(activeDarkPattern, maxSpawns, spawnCount);
             currentTimeSpawner = spawnTimer;
