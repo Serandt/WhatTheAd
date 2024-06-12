@@ -2360,7 +2360,7 @@ Transform:
   m_GameObject: {fileID: 1130948608}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.837, y: 1.178, z: 0.104}
+  m_LocalPosition: {x: 0.837, y: 0.965, z: 0.157}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2379,7 +2379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 1457870501482630030, guid: 0eb32742f1002e742822c777ebd6bb9b, type: 3}
-  areaSize: {x: 2, y: 0, z: 0.4}
+  areaSize: {x: 1.5, y: 0, z: 0.35}
   startInterval: 8
   endInterval: 3
   decreaseTime: 120
@@ -4563,15 +4563,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7288789758404843373, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.0580723
+      value: 2.30123
       objectReference: {fileID: 0}
     - target: {fileID: 7288789758404843373, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.0580723
+      value: 2.30123
       objectReference: {fileID: 0}
     - target: {fileID: 7288789758404843373, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.0580723
+      value: 2.30123
       objectReference: {fileID: 0}
     - target: {fileID: 7288789758404843373, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4612,6 +4612,10 @@ PrefabInstance:
     - target: {fileID: 7288789758404843373, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288789758404843373, guid: a990db27e5580b740a36318ac166728f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7307653801372368766, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_text
