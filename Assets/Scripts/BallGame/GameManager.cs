@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject scoreDisplay;
     public GameObject timeDisplay;
-    public GameObject distanceDisplay;
     public GameObject LivesDisplay;
     public GameObject highscoresDisplay;
     public GameObject popupsDisplay;
@@ -109,7 +108,6 @@ public class GameManager : MonoBehaviour
         scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
         popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {DarkPatternManager.Instance.activePatterns.Count} {Environment.NewLine} Points for ball: {Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count)}";
-        //TODO: distanceDisplay;
     }
 
     public void StartGame(Condition cond)
