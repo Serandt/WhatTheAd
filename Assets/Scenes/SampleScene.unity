@@ -2053,9 +2053,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overCameraRig: {fileID: 2130237513}
-  spawnTimer: 20
-  maxSpawns: 7
-  proximityAd: {fileID: 8155342164835831404, guid: 324bb1338ad545e4fb0be827bdae76ef, type: 3}
+  spawnTimer: 30
+  maxSpawns: 6
+  proximityAd: {fileID: 2209216276620250037, guid: c11e49ff0b9a66d44bbc6ab67606c726, type: 3}
   falseFriendAd: {fileID: 909235477403101362, guid: ce45913c17bcc2b42923b620dfc98806, type: 3}
   messagePopUpAd: {fileID: 1733979315757727928, guid: 0e3e6389202a15b4abd288673eeb63ea, type: 3}
   tutorialAd: {fileID: 2408940778048991217, guid: bd53c9dd42c0a5c4e98efca6e2c000a3, type: 3}

@@ -8,7 +8,7 @@ public class BoundaryZones : MonoBehaviour
     public static BoundaryZones Instance;
     public float noSpawnZoneWidth = 2.0f;
     public float noSpawnZoneDepth = 2.0f;
-    public float spawnRadius = 0.3f;
+    public float spawnRadius = 0.4f;
 
 
     private Vector3 surfaceCenter; 
@@ -93,8 +93,14 @@ public class BoundaryZones : MonoBehaviour
             spawnPosition.x = Mathf.Clamp(spawnPosition.x, boundaryMin.x + spawnRadius, boundaryMax.x - spawnRadius);
             spawnPosition.z = Mathf.Clamp(spawnPosition.z, boundaryMin.z + spawnRadius, boundaryMax.z - spawnRadius);
 
-            if (objectToSpawnPrefab.CompareTag("FalseFriend") || objectToSpawnPrefab.CompareTag("TutorialAd"))
+            if (objectToSpawnPrefab.CompareTag("TutorialAd"))
+            {
                 spawnPosition.y = 0.2f;
+            }
+            else if (objectToSpawnPrefab.CompareTag("FalseFriend"))
+            {
+                spawnPosition.y = 0f;
+            }
 
 
             if (IsPositionValid(spawnPosition))

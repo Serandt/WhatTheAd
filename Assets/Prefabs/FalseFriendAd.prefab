@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameObject: {fileID: 0}
   ballPrefab: {fileID: 7012209239574755681, guid: 827287f28caeaee41993bebf49477f46, type: 3}
-  bin: {fileID: 3304168576115411787, guid: 916bb48d4b45190458c68ce9a8a24e78, type: 3}
+  bin: {fileID: 772529848019761795, guid: 763a0b066a0df094dbf69baaa92a897a, type: 3}

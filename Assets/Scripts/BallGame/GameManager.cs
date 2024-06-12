@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         livesRemaining = playerLives;
-
     }
 
     void Update()
