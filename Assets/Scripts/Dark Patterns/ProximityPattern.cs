@@ -99,38 +99,42 @@ public class ProximityPattern : DarkPattern
 
     void FindPathAlongEdge(Vector3 directionToPlayer)
     {
-        float maxEscapeDistance = fleeDistance;
-        float angleStep = 10;
-        int numberOfRays = 36;
+        float maxEscapeDistance = fleeDistance;  // Maximale Fluchtdistanz
+        float angleStep = 10;  // Kleinere Winkelauflösung von 10 Grad
+        int numberOfRays = 36;  // 360° / 10° für eine vollständige Abdeckung
 
         bool pathFound = false;
-        Vector3 bestPosition = Vector3.zero;
         float bestDistance = 0;
+        Vector3 bestPosition = Vector3.zero;
 
+        // Überprüfen der Umgebung in 360 Grad um den Agenten
         for (int i = 0; i < numberOfRays; i++)
         {
             float angle = i * angleStep;
-            Vector3 direction = Quaternion.Euler(0, angle, 0) * Vector3.forward;  // Standardisiert auf vorwärts gerichtet
+            Vector3 direction = Quaternion.Euler(0, angle, 0) * directionToPlayer.normalized;
             Vector3 testPosition = transform.position + direction * maxEscapeDistance;
 
-            if (NavMesh.SamplePosition(testPosition, out NavMeshHit hit, checkDistance, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(testPosition, out NavMeshHit hit, maxEscapeDistance, NavMesh.AllAreas))
             {
+                // Prüfe, ob diese Position besser als bisher gefundene ist
                 float distanceToHit = Vector3.Distance(transform.position, hit.position);
                 if (!pathFound || distanceToHit > bestDistance)
                 {
-                    bestPosition = hit.position;
                     bestDistance = distanceToHit;
+                    bestPosition = hit.position;
                     pathFound = true;
                 }
             }
         }
 
+        // Wenn ein Pfad gefunden wurde, setze das Ziel des Agenten
         if (pathFound)
         {
             agent.SetDestination(bestPosition);
         }
         else
         {
+            // Als Fallback die Orientierung ändern oder eine Wartezeit einlegen
             Debug.Log("Kein Fluchtweg gefunden, Agent wartet...");
         }
     }
