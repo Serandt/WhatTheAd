@@ -1904,8 +1904,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overCameraRig: {fileID: 2130237513}
-  spawnTimer: 1
-  maxSpawns: 5
+  spawnTimer: 15
+  maxSpawns: 18
   spawnCount: 0
   proximityAd: {fileID: 2209216276620250037, guid: c11e49ff0b9a66d44bbc6ab67606c726, type: 3}
   falseFriendAd: {fileID: 909235477403101362, guid: ce45913c17bcc2b42923b620dfc98806, type: 3}
@@ -2574,7 +2574,9 @@ MonoBehaviour:
   playGame: 0
   outOfBoundary: 0
   condition: 0
+  startTime: 0
   playTutorial: 0
+  globalHighscore: 40.12
 --- !u!1 &1350524696
 GameObject:
   m_ObjectHideFlags: 0
