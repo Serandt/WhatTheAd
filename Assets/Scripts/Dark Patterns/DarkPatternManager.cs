@@ -12,7 +12,7 @@ public class DarkPatternManager : MonoBehaviour
 
     public int spawnCount = 0;
 
-    private float currentTimeSpawner;
+    public float currentTimeSpawner;
 
     public GameObject proximityAd;
     public GameObject falseFriendAd;

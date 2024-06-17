@@ -194,6 +194,7 @@ public class GameManager : MonoBehaviour
         buttons.SetActive(true);
         timeRemaining = 0;
         DarkPatternManager.Instance.spawnCount = 0;
+        DarkPatternManager.Instance.currentTimeSpawner = DarkPatternManager.Instance.spawnCount;
         BoundaryManager.Instance.collideWithBoundaryCounter = 0;
 
         DeleteObjects();
