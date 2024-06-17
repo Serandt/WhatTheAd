@@ -93,19 +93,21 @@ public class BoundaryZones : MonoBehaviour
             spawnPosition.x = Mathf.Clamp(spawnPosition.x, boundaryMin.x + spawnRadius, boundaryMax.x - spawnRadius);
             spawnPosition.z = Mathf.Clamp(spawnPosition.z, boundaryMin.z + spawnRadius, boundaryMax.z - spawnRadius);
 
-            if (objectToSpawnPrefab.CompareTag("FalseFriend"))
+            switch(objectToSpawnPrefab.tag)
             {
-                spawnPosition.y = 0f;
+                case "FalseFriend":
+                    spawnPosition.y = 0f;
+                    break;
+                case "TutorialAd":
+                    spawnPosition.y = 0.2f;
+                    break;
+                case "ProximityAd":
+                    spawnPosition.y = 1.5f;
+                    break;
+                default:
+                    spawnPosition.y = BoundaryManager.Instance.hmd.position.y;
+                    break;
             }
-            else if (objectToSpawnPrefab.CompareTag("TutorialAd"))
-            {
-                spawnPosition.y = 0.2f;
-            }
-            else
-            {
-                spawnPosition.y = 1.5f;
-            }
-
 
             if (IsPositionValid(spawnPosition))
             {
