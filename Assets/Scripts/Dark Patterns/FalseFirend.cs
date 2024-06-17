@@ -21,14 +21,24 @@ public class FalseFirend : DarkPattern
     public void SpawnBall()
     {
         Vector3 spawnPosition = new Vector3(
-            Random.Range(-areaSize.x / 2, areaSize.x / 2),
-            Random.Range(-areaSize.y / 2, areaSize.y / 2),
-            Random.Range(-areaSize.z / 2, areaSize.z / 2))
-             + BallSpawner.Instance.gameObject.transform.position;
+        Random.Range(-areaSize.x / 2, areaSize.x / 2),
+        Random.Range(-areaSize.y / 2, areaSize.y / 2),
+        Random.Range(-areaSize.z / 2, areaSize.z / 2))
+        + BallSpawner.Instance.gameObject.transform.position;
 
-        Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
-        Debug.Log("ID: " + ID);
-        ballPrefab.GetComponent<FalseBall>().obj = this.gameObject;
+        // Instantiate and get a reference to the new ball
+        GameObject newBall = Instantiate(ballPrefab, spawnPosition, Quaternion.identity);
+
+        // Correctly set the 'obj' reference on the newly instantiated ball
+        FalseBall falseBallComponent = newBall.GetComponent<FalseBall>();
+        if (falseBallComponent != null)
+        {
+            falseBallComponent.obj = gameObject; // Set to this GameObject, not the prefab
+        }
+        else
+        {
+            Debug.LogError("FalseBall component not found on the newly instantiated ball.");
+        }
     }
 
     public void SpawnBin()
