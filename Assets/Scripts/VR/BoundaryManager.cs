@@ -20,8 +20,12 @@ public class BoundaryManager : MonoBehaviour
 
     private int collideWithBoundaryCounter = 0;
 
+    public static BoundaryManager Instance;
+
     private void Start()
     {
+        Instance = this;
+
         // Cache the MeshRenderer component at start
         meshRenderer = GetComponent<MeshRenderer>();
         defaultMaterial = meshRenderer.material;
