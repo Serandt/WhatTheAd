@@ -55,7 +55,8 @@ public class GameData : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
+       // playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
+        playerName = "Player Test";
     }
 
     public void SetPlayerID()
