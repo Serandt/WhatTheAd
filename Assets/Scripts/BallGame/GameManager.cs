@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public int playerLives = 3;
     public int livesRemaining;
 
-    private double score;
+    private float score;
     public static float timeRemaining = -100;
     public bool playGame = false;
     public bool outOfBoundary = false;
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void AddScore()
     {
-        score += 1 * Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count); 
+        score += ((float)(1 * Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count))); 
         if (!playTutorial)
             GameData.Instance.AddEvent(Time.time, true);
     }

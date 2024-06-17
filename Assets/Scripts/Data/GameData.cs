@@ -93,7 +93,6 @@ public class GameData : MonoBehaviour
 
     public void AddAdData(int id, float spawnTime, float closeTime, bool isClosed)
     {
-        Debug.Log("AddAdData: " + id);
         dataWrapper.addDatas.Add(new AddData
         {
             id = id,
@@ -118,7 +117,6 @@ public class GameData : MonoBehaviour
     {
         if(GameManager.Instance.condition != GameManager.Condition.Tutorial)
         {
-            Debug.Log("Save Data");
             string json = JsonUtility.ToJson(dataWrapper, true);
             string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             string filePath = Path.Combine(Application.persistentDataPath, $"{playerName}_{GameManager.Instance.condition.ToString()}_GameData.json");

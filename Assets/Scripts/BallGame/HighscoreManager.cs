@@ -6,7 +6,7 @@ public class HighscoreManager : MonoBehaviour
 
     private const string HighscoreKey = "Highscore";
 
-    public double Highscore { get; private set; }
+    public float Highscore { get; private set; }
 
     void Awake()
     {
@@ -20,7 +20,7 @@ public class HighscoreManager : MonoBehaviour
         Highscore = PlayerPrefs.GetFloat(HighscoreKey, 0);
     }
 
-    public void SaveHighscore(double newHighscore)
+    public void SaveHighscore(float newHighscore)
     {
         if (newHighscore > Highscore)
         {
