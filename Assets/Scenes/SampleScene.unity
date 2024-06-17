@@ -3857,7 +3857,7 @@ GameObject:
   - component: {fileID: 1834358910}
   - component: {fileID: 1834358909}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: SaveBallPlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3919,8 +3919,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
