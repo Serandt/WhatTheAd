@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     public bool playTutorial = false;
 
-    public float globalHighscore = 40.12f;
+    public float globalHighscore = 2f;
 
 
 
