@@ -100,9 +100,13 @@ public class ProximityPattern : DarkPattern
     void FindPathAlongEdge(Vector3 directionToPlayer)
     {
         Vector3[] directions = new Vector3[] {
-        Quaternion.Euler(0, 90, 0) * directionToPlayer,
-        Quaternion.Euler(0, -90, 0) * directionToPlayer,
-        Quaternion.Euler(0, 180, 0) * directionToPlayer  // Rückwärts als neue Option
+        Quaternion.Euler(0, 90, 0) * directionToPlayer,    // Rechts
+        Quaternion.Euler(0, -90, 0) * directionToPlayer,   // Links
+        Quaternion.Euler(0, 180, 0) * directionToPlayer,   // Rückwärts
+        Quaternion.Euler(0, 45, 0) * directionToPlayer,    // Diagonal rechts vorwärts
+        Quaternion.Euler(0, -45, 0) * directionToPlayer,   // Diagonal links vorwärts
+        Quaternion.Euler(0, 135, 0) * directionToPlayer,   // Diagonal rechts rückwärts
+        Quaternion.Euler(0, -135, 0) * directionToPlayer   // Diagonal links rückwärts
     };
 
         foreach (var dir in directions)
