@@ -99,24 +99,43 @@ public class ProximityPattern : DarkPattern
 
     void FindPathAlongEdge(Vector3 directionToPlayer)
     {
-        Vector3[] directions = new Vector3[] {
-        Quaternion.Euler(0, 90, 0) * directionToPlayer,    // Rechts
-        Quaternion.Euler(0, -90, 0) * directionToPlayer,   // Links
-        Quaternion.Euler(0, 180, 0) * directionToPlayer,   // Rückwärts
-        Quaternion.Euler(0, 45, 0) * directionToPlayer,    // Diagonal rechts vorwärts
-        Quaternion.Euler(0, -45, 0) * directionToPlayer,   // Diagonal links vorwärts
-        Quaternion.Euler(0, 135, 0) * directionToPlayer,   // Diagonal rechts rückwärts
-        Quaternion.Euler(0, -135, 0) * directionToPlayer   // Diagonal links rückwärts
-    };
+        float maxEscapeDistance = fleeDistance;  // Maximale Fluchtdistanz
+        float angleStep = 10;  // Kleinere Winkelauflösung von 10 Grad
+        int numberOfRays = 36;  // 360° / 10° für eine vollständige Abdeckung
 
-        foreach (var dir in directions)
+        bool pathFound = false;
+        float bestDistance = 0;
+        Vector3 bestPosition = Vector3.zero;
+
+        // Überprüfen der Umgebung in 360 Grad um den Agenten
+        for (int i = 0; i < numberOfRays; i++)
         {
-            Vector3 sideStep = dir * fleeDistance;
-            if (NavMesh.SamplePosition(transform.position + sideStep, out NavMeshHit hit, checkDistance, NavMesh.AllAreas))
+            float angle = i * angleStep;
+            Vector3 direction = Quaternion.Euler(0, angle, 0) * directionToPlayer.normalized;
+            Vector3 testPosition = transform.position + direction * maxEscapeDistance;
+
+            if (NavMesh.SamplePosition(testPosition, out NavMeshHit hit, maxEscapeDistance, NavMesh.AllAreas))
             {
-                agent.SetDestination(hit.position);
-                return; 
+                // Prüfe, ob diese Position besser als bisher gefundene ist
+                float distanceToHit = Vector3.Distance(transform.position, hit.position);
+                if (!pathFound || distanceToHit > bestDistance)
+                {
+                    bestDistance = distanceToHit;
+                    bestPosition = hit.position;
+                    pathFound = true;
+                }
             }
+        }
+
+        // Wenn ein Pfad gefunden wurde, setze das Ziel des Agenten
+        if (pathFound)
+        {
+            agent.SetDestination(bestPosition);
+        }
+        else
+        {
+            // Als Fallback die Orientierung ändern oder eine Wartezeit einlegen
+            Debug.Log("Kein Fluchtweg gefunden, Agent wartet...");
         }
     }
 }
