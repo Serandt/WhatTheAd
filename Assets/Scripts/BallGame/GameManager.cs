@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject popupsDisplay;
     public GameObject buttons;
 
-    public static float gameTime = 30.0f;
+    public static float gameTime = 120f;
 
     public int playerLives = 3;
     public int livesRemaining;
