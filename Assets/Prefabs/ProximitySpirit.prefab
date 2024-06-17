@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   GameObject: {fileID: 0}
-  fleeDistance: 0.75
+  fleeDistance: 1
   agent: {fileID: 4882216096583234236}
   checkDistance: 2
 --- !u!135 &4888936569398481020
@@ -189,8 +189,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 2209216276620250037}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
+  m_Radius: 0.2
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

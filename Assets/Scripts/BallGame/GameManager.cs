@@ -118,6 +118,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(Condition cond)
     {
+        DarkPatternManager.Instance.currentTimeSpawner = DarkPatternManager.Instance.spawnTimer;
+        BallSpawner.Instance.SetUpSpawnTimes();
         GameData.Instance.ClearDataWrapper();
         startTime = Time.time;
         buttons.SetActive(false);
@@ -194,7 +196,7 @@ public class GameManager : MonoBehaviour
         buttons.SetActive(true);
         timeRemaining = 0;
         DarkPatternManager.Instance.spawnCount = 0;
-        DarkPatternManager.Instance.currentTimeSpawner = DarkPatternManager.Instance.spawnCount;
+        
         BoundaryManager.Instance.collideWithBoundaryCounter = 0;
 
         DeleteObjects();

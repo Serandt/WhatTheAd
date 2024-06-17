@@ -22,8 +22,7 @@ public class BallSpawner : MonoBehaviour
 
     void Start()
     {
-        currentInterval = startInterval;
-        lastSpawnTime = -100;
+        SetUpSpawnTimes();
     }
 
     void Update()
@@ -60,5 +59,11 @@ public class BallSpawner : MonoBehaviour
         Gizmos.color = Color.green;
         Vector3 size = new Vector3(areaSize.x, 0, areaSize.z); 
         Gizmos.DrawWireCube(transform.position, size);
+    }
+
+    public void SetUpSpawnTimes()
+    {
+        currentInterval = startInterval;
+        lastSpawnTime = -100;
     }
 }
