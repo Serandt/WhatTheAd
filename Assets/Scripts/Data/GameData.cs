@@ -55,8 +55,9 @@ public class GameData : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-       // playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
-        playerName = "Player Test";
+        //playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
+        //playerName = "Player Test";
+        //Debug.Log("PlayerID: " + PlayerPrefs.GetInt(PlayerIDKey, 0));
     }
 
     public void SetPlayerID()
@@ -120,7 +121,7 @@ public class GameData : MonoBehaviour
         {
             string json = JsonUtility.ToJson(dataWrapper, true);
             string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string filePath = Path.Combine(Application.persistentDataPath, $"{playerName}_{GameManager.Instance.condition.ToString()}_GameData.json");
+            string filePath = Path.Combine(Application.persistentDataPath, $"{timestamp}_{GameManager.Instance.condition.ToString()}_GameData.json");
             File.WriteAllText(filePath, json);
         }
         dataWrapper.gameEvents.Clear();

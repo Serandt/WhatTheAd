@@ -16,13 +16,13 @@ public abstract class DarkPattern : MonoBehaviour
     {
         ID = id;
         GameObject = gameObject;
-        SpawnTime = Time.time;
+        SpawnTime = Time.time - GameManager.Instance.startTime;
         IsClosed = false;
     }
 
     public void Close()
     {
-        CloseTime = Time.time;
+        CloseTime = Time.time - GameManager.Instance.startTime;
         IsClosed = true;
         if(!GameManager.Instance.playTutorial)
             GameData.Instance.AddAdData(ID, SpawnTime, CloseTime, IsClosed);

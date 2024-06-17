@@ -1562,7 +1562,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: 2
+    m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -1904,7 +1904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overCameraRig: {fileID: 2130237513}
-  spawnTimer: 20
+  spawnTimer: 1
   maxSpawns: 5
   spawnCount: 0
   proximityAd: {fileID: 2209216276620250037, guid: c11e49ff0b9a66d44bbc6ab67606c726, type: 3}
@@ -4464,10 +4464,6 @@ PrefabInstance:
       propertyPath: m_text
       value: Tutorial
       objectReference: {fileID: 0}
-    - target: {fileID: 2945737798497384238, guid: a990db27e5580b740a36318ac166728f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.582356
-      objectReference: {fileID: 0}
     - target: {fileID: 3130538915451937325, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.002
@@ -4523,10 +4519,6 @@ PrefabInstance:
     - target: {fileID: 4474281471978698481, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -244.927
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615278408678005513, guid: a990db27e5580b740a36318ac166728f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.582356
       objectReference: {fileID: 0}
     - target: {fileID: 4811060574697888773, guid: a990db27e5580b740a36318ac166728f, type: 3}
       propertyPath: m_LocalScale.z

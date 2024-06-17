@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject popupsDisplay;
     public GameObject buttons;
 
-    public static float gameTime = 120f;
+    public static float gameTime = 10f;
 
     public int playerLives = 3;
     public int livesRemaining;
@@ -30,7 +30,11 @@ public class GameManager : MonoBehaviour
     private int conditionCounter;
     public Condition condition;
 
+    public float startTime;
+
     public bool playTutorial = false;
+
+    public float globalHighscore = 40.12f;
 
 
 
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         livesRemaining = playerLives;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
-        highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {HighscoreManager.Instance.Highscore}";
+        highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {globalHighscore}";
     }
 
     void Update()
@@ -95,14 +99,14 @@ public class GameManager : MonoBehaviour
     {
         score += ((float)(1 * Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count))); 
         if (!playTutorial)
-            GameData.Instance.AddEvent(Time.time, true);
+            GameData.Instance.AddEvent(Time.time - startTime, true);
     }
 
     public void AddError()
     {
         score--;
         if (!playTutorial)
-            GameData.Instance.AddEvent(Time.time, false);
+            GameData.Instance.AddEvent(Time.time - startTime, false);
     }
 
     void UpdateUI()
@@ -114,6 +118,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(Condition cond)
     {
+        startTime = Time.time;
         buttons.SetActive(false);
         timeRemaining = gameTime;
         playGame = true;
@@ -175,8 +180,12 @@ public class GameManager : MonoBehaviour
         if (!playTutorial)
         {
             GameData.Instance.SaveData();
-            HighscoreManager.Instance.SaveHighscore(score);
-            conditionCounter++;
+            //HighscoreManager.Instance.SaveHighscore(score);
+            if(score > globalHighscore)
+            {
+                globalHighscore = score;
+            }
+            //conditionCounter++;
         }
         playGame = false;
         condition = Condition.None;
@@ -187,13 +196,13 @@ public class GameManager : MonoBehaviour
         DarkPatternManager.Instance.spawnCount = 0;
 
         DeleteObjects();
-     
 
+      /*  Debug.Log("ConditionCounter: " + conditionCounter);
         if (conditionCounter == 3)
         {
             GameData.Instance.SetPlayerID();
             conditionCounter = 0;
-        }
+        }*/
 
 
         score = 0;
