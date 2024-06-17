@@ -75,7 +75,7 @@ public class ProximityPattern : DarkPattern
         }
     }
 
-    void FindPathAlongEdge(Vector3 directionToPlayer)
+    /*void FindPathAlongEdge(Vector3 directionToPlayer)
     {
     // Probieren Sie, nach links oder rechts auszuweichen
     Vector3 sideStep = Quaternion.Euler(0, 90, 0) * directionToPlayer * fleeDistance;
@@ -93,6 +93,25 @@ public class ProximityPattern : DarkPattern
     {
         agent.SetDestination(hitLeft.position);
     }
+    }*/
+
+    void FindPathAlongEdge(Vector3 directionToPlayer)
+    {
+        Vector3[] directions = new Vector3[] {
+        Quaternion.Euler(0, 90, 0) * directionToPlayer,
+        Quaternion.Euler(0, -90, 0) * directionToPlayer,
+        Quaternion.Euler(0, 180, 0) * directionToPlayer  // Rückwärts als neue Option
+    };
+
+        foreach (var dir in directions)
+        {
+            Vector3 sideStep = dir * fleeDistance;
+            if (NavMesh.SamplePosition(transform.position + sideStep, out NavMeshHit hit, checkDistance, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+                return; 
+            }
+        }
     }
 }
 
