@@ -42,9 +42,9 @@ public class ProximityPattern : DarkPattern
          }*/
 
 
-    public float fleeDistance = 2.5f;
+    public float fleeDistance;
     public NavMeshAgent agent;
-    public float checkDistance = 4f;
+    public float checkDistance;
     
     private void Start()
     {
