@@ -120,7 +120,7 @@ public class GameData : MonoBehaviour
         if(GameManager.Instance.condition != GameManager.Condition.Tutorial)
         {
             string json = JsonUtility.ToJson(dataWrapper, true);
-            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string filePath = Path.Combine(Application.persistentDataPath, $"{timestamp}_{GameManager.Instance.condition.ToString()}_GameData.json");
             File.WriteAllText(filePath, json);
         }

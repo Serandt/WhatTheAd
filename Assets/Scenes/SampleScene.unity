@@ -2229,9 +2229,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 1457870501482630030, guid: 0eb32742f1002e742822c777ebd6bb9b, type: 3}
   areaSize: {x: 1, y: 0, z: 0.25}
-  startInterval: 8
-  endInterval: 3
-  decreaseTime: 120
+  startInterval: 5
+  endInterval: 2
+  decreaseTime: 160
 --- !u!1 &1134275130
 GameObject:
   m_ObjectHideFlags: 0
