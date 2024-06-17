@@ -168,12 +168,16 @@ public class GameManager : MonoBehaviour
         {
             if (!playTutorial){
                 GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed);
-                GameData.Instance.SaveData();
-                HighscoreManager.Instance.SaveHighscore(score);
-                conditionCounter++;
+
             }
                
-        }  
+        }
+        if (!playTutorial)
+        {
+            GameData.Instance.SaveData();
+            HighscoreManager.Instance.SaveHighscore(score);
+            conditionCounter++;
+        }
         playGame = false;
         condition = Condition.None;
         
