@@ -186,6 +186,7 @@ public class GameManager : MonoBehaviour
             if(score > globalHighscore)
             {
                 globalHighscore = score;
+                highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {globalHighscore}";
             }
             //conditionCounter++;
         }
