@@ -56,7 +56,6 @@ public class GameData : MonoBehaviour
     {
         Instance = this;
         playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
-        
     }
 
     public void SetPlayerID()
@@ -76,6 +75,7 @@ public class GameData : MonoBehaviour
 
     public void ResetPlayerID()
     {
+        Debug.Log("RestePlayerID");
         PlayerID = 0;
         PlayerPrefs.SetFloat(PlayerIDKey, PlayerID);
         PlayerPrefs.Save();
