@@ -20,15 +20,15 @@ public class ProximityPattern : DarkPattern
     {
         float distance = Vector3.Distance(transform.position, DarkPatternManager.Instance.GetCameraPos());
         
-       /* if (distance < fleeDistance)
+        if (distance < fleeDistance)
         {
             Vector3 directionToPlayer = transform.position - DarkPatternManager.Instance.GetCameraPos();
             agent.SetDestination(directionToPlayer);
-        }*/
+        }
 
    
 
-        if (distance < fleeDistance)
+      /*  if (distance < fleeDistance)
         {
             Vector3 directionToPlayer = transform.position - DarkPatternManager.Instance.GetCameraPos();
             directionToPlayer.Normalize();  
@@ -39,7 +39,7 @@ public class ProximityPattern : DarkPattern
             {
                 agent.SetDestination(hit.position);
             }
-        }
+        }*/
     }
 }
 

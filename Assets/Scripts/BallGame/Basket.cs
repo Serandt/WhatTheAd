@@ -19,5 +19,10 @@ public class Basket : MonoBehaviour
             }
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("FalseBall"))
+        {
+            other.GetComponent<Transform>().position = other.GetComponent<FalseBall>().spawnPosition;
+        }
     }
 }

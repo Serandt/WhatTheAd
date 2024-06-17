@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class FalseBall : MonoBehaviour
 {
-    public int id;
     public GameObject obj;
+    public Vector3 spawnPosition;
 }

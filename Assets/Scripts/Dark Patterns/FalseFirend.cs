@@ -34,6 +34,7 @@ public class FalseFirend : DarkPattern
         if (falseBallComponent != null)
         {
             falseBallComponent.obj = gameObject; // Set to this GameObject, not the prefab
+            falseBallComponent.spawnPosition = spawnPosition;
         }
         else
         {
