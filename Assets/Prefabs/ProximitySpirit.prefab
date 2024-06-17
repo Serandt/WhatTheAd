@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   GameObject: {fileID: 0}
-  fleeDistance: 0.5
+  fleeDistance: 0.75
   agent: {fileID: 4882216096583234236}
   checkDistance: 2
 --- !u!135 &4888936569398481020
