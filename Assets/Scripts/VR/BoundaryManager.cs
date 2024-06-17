@@ -18,7 +18,7 @@ public class BoundaryManager : MonoBehaviour
     private Vector3 surfaceCenter;
     private MeshRenderer meshRenderer;
 
-    private int collideWithBoundaryCounter = 0;
+    public int collideWithBoundaryCounter = 0;
 
     public static BoundaryManager Instance;
 

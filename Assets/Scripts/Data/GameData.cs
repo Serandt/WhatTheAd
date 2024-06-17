@@ -124,12 +124,17 @@ public class GameData : MonoBehaviour
             string filePath = Path.Combine(Application.persistentDataPath, $"{timestamp}_{GameManager.Instance.condition.ToString()}_GameData.json");
             File.WriteAllText(filePath, json);
         }
+
+        ClearDataWrapper();
+    }
+
+    public void ClearDataWrapper()
+    {
         dataWrapper.gameEvents.Clear();
         dataWrapper.addDatas.Clear();
         dataWrapper.boundaryCollisions.Clear();
 
-
     }
 
-   
+
 }

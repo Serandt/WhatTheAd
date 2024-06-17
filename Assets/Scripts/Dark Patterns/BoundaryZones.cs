@@ -115,7 +115,7 @@ public class BoundaryZones : MonoBehaviour
                 DarkPattern darkPattern = spawnedObject.GetComponent<DarkPattern>();
                 if (darkPattern != null)
                 {
-                    darkPattern.Initialize(spawnCount, spawnedObject); // Initialize with a unique ID or similar identifier
+                    darkPattern.Initialize(spawnCount, spawnedObject); 
                     DarkPatternManager.Instance.activePatterns.Add(darkPattern);
                     positionFound = true;
                 }

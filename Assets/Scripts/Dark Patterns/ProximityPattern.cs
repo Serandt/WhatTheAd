@@ -75,6 +75,8 @@ public class ProximityPattern : DarkPattern
         }
     }
 
+
+
     /*void FindPathAlongEdge(Vector3 directionToPlayer)
     {
     // Probieren Sie, nach links oder rechts auszuweichen

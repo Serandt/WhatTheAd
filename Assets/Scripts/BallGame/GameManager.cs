@@ -118,6 +118,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(Condition cond)
     {
+        GameData.Instance.ClearDataWrapper();
         startTime = Time.time;
         buttons.SetActive(false);
         timeRemaining = gameTime;
@@ -180,7 +181,6 @@ public class GameManager : MonoBehaviour
         if (!playTutorial)
         {
             GameData.Instance.SaveData();
-            //HighscoreManager.Instance.SaveHighscore(score);
             if(score > globalHighscore)
             {
                 globalHighscore = score;
@@ -194,6 +194,7 @@ public class GameManager : MonoBehaviour
         buttons.SetActive(true);
         timeRemaining = 0;
         DarkPatternManager.Instance.spawnCount = 0;
+        BoundaryManager.Instance.collideWithBoundaryCounter = 0;
 
         DeleteObjects();
 
