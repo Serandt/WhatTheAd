@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public float globalHighscore = 2f;
 
-
+    private float endGameCoolDown = 5f;
 
     public enum MaterialTag
     {
@@ -191,7 +191,6 @@ public class GameManager : MonoBehaviour
         condition = Condition.None;
         
         ResetLives();
-        buttons.SetActive(true);
         timeRemaining = 0;
         DarkPatternManager.Instance.spawnCount = 0;
         DarkPatternManager.Instance.currentTimeSpawner = DarkPatternManager.Instance.spawnCount;
@@ -212,6 +211,13 @@ public class GameManager : MonoBehaviour
         scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
         popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {0} {Environment.NewLine} Points for ball: {Math.Pow(.5f, 0)}";
+
+        Invoke("SetButtonsVisible", endGameCoolDown);
+    }
+
+    private void SetButtonsVisible()
+    {
+        buttons.SetActive(true);
     }
 
     private void DeleteObjects()
