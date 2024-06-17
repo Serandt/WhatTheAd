@@ -28,6 +28,8 @@ public class DarkPatternManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        currentTimeSpawner = spawnTimer;
+        Vector3 cameraPos = GetCameraPos();
     }
 
 
@@ -43,12 +45,6 @@ public class DarkPatternManager : MonoBehaviour
      
             spawnCount++;
         }
-    }
-
-    void Start()
-    {
-        currentTimeSpawner = spawnTimer;
-        Vector3 cameraPos = GetCameraPos();
     }
 
     public Vector3 GetCameraPos()
