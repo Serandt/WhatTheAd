@@ -99,39 +99,24 @@ public class ProximityPattern : DarkPattern
 
     void FindPathAlongEdge(Vector3 directionToPlayer)
     {
-        float maxEscapeDistance = fleeDistance;
-        float angleStep = 10;
-        int numberOfRays = 36;
+        Vector3[] directions = new Vector3[] {
+        Quaternion.Euler(0, 90, 0) * directionToPlayer,    // Rechts
+        Quaternion.Euler(0, -90, 0) * directionToPlayer,   // Links
+        Quaternion.Euler(0, 180, 0) * directionToPlayer,   // Rückwärts
+        Quaternion.Euler(0, 45, 0) * directionToPlayer,    // Diagonal rechts vorwärts
+        Quaternion.Euler(0, -45, 0) * directionToPlayer,   // Diagonal links vorwärts
+        Quaternion.Euler(0, 135, 0) * directionToPlayer,   // Diagonal rechts rückwärts
+        Quaternion.Euler(0, -135, 0) * directionToPlayer   // Diagonal links rückwärts
+    };
 
-        bool pathFound = false;
-        Vector3 bestPosition = Vector3.zero;
-        float bestDistance = 0;
-
-        for (int i = 0; i < numberOfRays; i++)
+        foreach (var dir in directions)
         {
-            float angle = i * angleStep;
-            Vector3 direction = Quaternion.Euler(0, angle, 0) * Vector3.forward;  // Standardisiert auf vorwärts gerichtet
-            Vector3 testPosition = transform.position + direction * maxEscapeDistance;
-
-            if (NavMesh.SamplePosition(testPosition, out NavMeshHit hit, checkDistance, NavMesh.AllAreas))
+            Vector3 sideStep = dir * fleeDistance;
+            if (NavMesh.SamplePosition(transform.position + sideStep, out NavMeshHit hit, checkDistance, NavMesh.AllAreas))
             {
-                float distanceToHit = Vector3.Distance(transform.position, hit.position);
-                if (!pathFound || distanceToHit > bestDistance)
-                {
-                    bestPosition = hit.position;
-                    bestDistance = distanceToHit;
-                    pathFound = true;
-                }
+                agent.SetDestination(hit.position);
+                return; 
             }
-        }
-
-        if (pathFound)
-        {
-            agent.SetDestination(bestPosition);
-        }
-        else
-        {
-            Debug.Log("Kein Fluchtweg gefunden, Agent wartet...");
         }
     }
 }
