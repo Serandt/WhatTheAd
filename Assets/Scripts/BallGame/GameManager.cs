@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject popupsDisplay;
     public GameObject buttons;
 
-    public static float gameTime = 60 *5f;
+    public float gameTime = 60 *5f;
 
     public int playerLives = 3;
     public int livesRemaining;
@@ -73,7 +74,12 @@ public class GameManager : MonoBehaviour
         livesRemaining = playerLives;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {globalHighscore}";
+        string id = Guid.NewGuid().ToString("N").Substring(0, 8);
+        GameData.Instance.SetPlayerID(id);
     }
+
+
+
 
     void Update()
     {
@@ -118,6 +124,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(Condition cond)
     {
+        BallSpawner.Instance.SetUpSpawnTimes();
+
         DarkPatternManager.Instance.currentTimeSpawner = DarkPatternManager.Instance.spawnTimer;
         BallSpawner.Instance.SetUpSpawnTimes();
         GameData.Instance.ClearDataWrapper();
@@ -176,7 +184,6 @@ public class GameManager : MonoBehaviour
         {
             if (!playTutorial){
                 GameData.Instance.AddAdData(pattern.ID, pattern.SpawnTime, float.NaN, pattern.IsClosed);
-
             }
                
         }
@@ -188,34 +195,36 @@ public class GameManager : MonoBehaviour
                 globalHighscore = score;
                 highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {globalHighscore}";
             }
-            //conditionCounter++;
+            conditionCounter++;
         }
+   
+        if (conditionCounter > 3)
+        {
+            string id = Guid.NewGuid().ToString("N").Substring(0, 8);
+            GameData.Instance.SetPlayerID(id);
+            conditionCounter = 0;
+        }
+
+
+        ResetValues();
+
+        DeleteObjects();
+        Invoke("SetButtonsVisible", endGameCoolDown);
+    }
+
+    private void ResetValues()
+    {
         playGame = false;
         condition = Condition.None;
-        
+        BoundaryManager.Instance.collideWithBoundaryCounter = 0;
         ResetLives();
         timeRemaining = 0;
         DarkPatternManager.Instance.spawnCount = 0;
-        
-        BoundaryManager.Instance.collideWithBoundaryCounter = 0;
-
-        DeleteObjects();
-
-      /*  Debug.Log("ConditionCounter: " + conditionCounter);
-        if (conditionCounter == 3)
-        {
-            GameData.Instance.SetPlayerID();
-            conditionCounter = 0;
-        }*/
-
-
         score = 0;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
         popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {0} {Environment.NewLine} Points for ball: {Math.Pow(.5f, 0)}";
-
-        Invoke("SetButtonsVisible", endGameCoolDown);
     }
 
     private void SetButtonsVisible()

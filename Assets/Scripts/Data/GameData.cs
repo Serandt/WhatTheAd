@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
+
 
 [System.Serializable]
 public class GameEvent
@@ -38,8 +40,8 @@ public class GameDataWrapper
 
 public class GameData : MonoBehaviour
 {
-    private const string PlayerIDKey = "PlayerID";
-    public int PlayerID { get; private set; }
+
+    public string playerID;
 
     public static GameData Instance;
 
@@ -55,34 +57,14 @@ public class GameData : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //playerName = "Player " + PlayerPrefs.GetInt(PlayerIDKey, 0);
-        //playerName = "Player Test";
-        //Debug.Log("PlayerID: " + PlayerPrefs.GetInt(PlayerIDKey, 0));
     }
 
-    public void SetPlayerID()
+    public void SetPlayerID(string newId)
     {
-        SaveID(PlayerID + 1);
+        playerID = newId;
     }
 
-    public void SaveID(int newId)
-    {
-        if (newId > PlayerID)
-        {
-            PlayerID = newId;
-            PlayerPrefs.SetInt(PlayerIDKey, PlayerID);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public void ResetPlayerID()
-    {
-        Debug.Log("RestePlayerID");
-        PlayerID = 0;
-        PlayerPrefs.SetFloat(PlayerIDKey, PlayerID);
-        PlayerPrefs.Save();
-    }
-
+   
 
     public void AddEvent(float timestamp, bool isPoint)
     {
@@ -120,9 +102,11 @@ public class GameData : MonoBehaviour
         if(GameManager.Instance.condition != GameManager.Condition.Tutorial)
         {
             string json = JsonUtility.ToJson(dataWrapper, true);
-            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            string filePath = Path.Combine(Application.persistentDataPath, $"{timestamp}_{GameManager.Instance.condition.ToString()}_GameData.json");
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+            string filePath = Path.Combine(Application.persistentDataPath, $"{playerID}_{timestamp}_{GameManager.Instance.condition.ToString()}_GameData.json");
             File.WriteAllText(filePath, json);
+
+            SaveDataToCSV();
         }
 
         ClearDataWrapper();
@@ -133,8 +117,55 @@ public class GameData : MonoBehaviour
         dataWrapper.gameEvents.Clear();
         dataWrapper.addDatas.Clear();
         dataWrapper.boundaryCollisions.Clear();
-
     }
+
+    private string GameEventsToCSV()
+    {
+        StringBuilder csv = new StringBuilder("Timestamp;IsPoint\n");  // Adjust the header to reflect each column for properties
+        foreach (var gameEvent in dataWrapper.gameEvents)
+        {
+            csv.AppendLine($"{gameEvent.timestamp};{gameEvent.isPoint}");
+        }
+        return csv.ToString();
+    }
+
+    private string AddDataToCSV()
+    {
+        StringBuilder csv = new StringBuilder("ID;SpawnTime;CloseTime;IsClosed\n");  // Header with columns for each data property
+        foreach (var add in dataWrapper.addDatas)
+        {
+            csv.AppendLine($"{add.id};{add.spawnTime};{add.closeTime};{add.isClosed}");
+        }
+        return csv.ToString();
+    }
+
+
+    private string BoundaryCollisionsToCSV()
+    {
+        StringBuilder csv = new StringBuilder();
+        // Header für die CSV-Datei
+        csv.AppendLine("Count;Timestamp;IsHand;IsHead");
+
+        // Daten für jede Kollision
+        foreach (var collision in dataWrapper.boundaryCollisions)
+        {
+            csv.AppendLine($"{collision.count};{collision.timestamp};{collision.isHand};{collision.isHead}");
+        }
+
+        return csv.ToString();
+    }
+
+    public void SaveDataToCSV()
+    {
+        string basePath = Application.persistentDataPath;
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+
+        // Saving each data part to a separate file
+        File.WriteAllText(Path.Combine(basePath, $"{playerID}_{timestamp}_{GameManager.Instance.condition.ToString()}_GameEvents.csv"), GameEventsToCSV());
+        File.WriteAllText(Path.Combine(basePath, $"{ playerID}_{ timestamp}_{ GameManager.Instance.condition.ToString()}_AdData.csv"), AddDataToCSV());
+        File.WriteAllText(Path.Combine(basePath, $"{ playerID}_{ timestamp}_{ GameManager.Instance.condition.ToString()}_BoundaryCollisions.csv"), BoundaryCollisionsToCSV());
+    }
+
 
 
 }

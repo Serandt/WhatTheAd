@@ -9,7 +9,7 @@ public class BallSpawner : MonoBehaviour
     public float endInterval = 1.0f;
     public float decreaseTime = 120.0f;
 
-    private float currentInterval;
+    public float currentInterval;
     private float timeElapsed;
     private float lastSpawnTime;
 
@@ -65,5 +65,6 @@ public class BallSpawner : MonoBehaviour
     {
         currentInterval = startInterval;
         lastSpawnTime = -100;
+        timeElapsed = 0f;
     }
 }
