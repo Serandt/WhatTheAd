@@ -7,8 +7,16 @@ public class DarkPatternManager : MonoBehaviour
     public OVRCameraRig overCameraRig;
 
 
-    public float spawnTimer = 10f;
-    public int maxSpawns = 10;
+    public float startInterval = 5.0f;
+    public float endInterval = 1.0f;
+    public float decreaseTime = 120.0f;
+
+    public float currentInterval;
+    private float timeElapsed;
+    private float lastSpawnTime;
+
+    System.Random rand = new System.Random();
+    private int currentSpawnIndex = 0;
 
     public int spawnCount = 0;
 
@@ -20,6 +28,7 @@ public class DarkPatternManager : MonoBehaviour
     public GameObject tutorialAd;
 
     public List<DarkPattern> activePatterns = new List<DarkPattern>();
+    public List<GameObject> spawnPoints = new List<GameObject>();
 
     public GameObject activeDarkPattern;
 
@@ -28,22 +37,29 @@ public class DarkPatternManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        currentTimeSpawner = spawnTimer;
         Vector3 cameraPos = GetCameraPos();
     }
 
-
-
-    public void Update()
+    private void Start()
     {
-        currentTimeSpawner -= Time.deltaTime;
+        SetUpSpawnTimes();
+        ShuffleSpawnPoints();
+    }
 
-        if (currentTimeSpawner <= 0 && spawnCount < maxSpawns && activeDarkPattern != null && GameManager.Instance.playGame)
+    private void Update()
+    {
+        if (GameManager.Instance.playGame)
         {
-            BoundaryZones.Instance.SpawnAd(activeDarkPattern, maxSpawns, spawnCount);
-            currentTimeSpawner = spawnTimer;
-     
-            spawnCount++;
+            timeElapsed += Time.deltaTime;
+
+            if (Time.time - lastSpawnTime >= currentInterval)
+            {
+                SpawnAd(activeDarkPattern, spawnCount);
+                lastSpawnTime = Time.time;
+
+                currentInterval = Mathf.Lerp(startInterval, endInterval, timeElapsed / decreaseTime);
+                spawnCount++;
+            }
         }
     }
 
@@ -61,6 +77,67 @@ public class DarkPatternManager : MonoBehaviour
         activePatterns.Remove(activePatterns.Find(item => item.ID == darkPattern.ID));
     }
 
+    public void SetUpSpawnTimes()
+    {
+        currentInterval = startInterval;
+        timeElapsed = 0f;
+        lastSpawnTime = Time.time;
+    }
+
+    public void SpawnAd(GameObject objectToSpawnPrefab, int spawnCount)
+    {
+        if (spawnPoints.Count == 0)
+        {
+            Debug.LogError("Spawn points list is empty.");
+            return;
+        }
+
+        if (currentSpawnIndex >= spawnPoints.Count)
+        {
+            ShuffleSpawnPoints(); // Reshuffle the list when all points have been used
+            currentSpawnIndex = 0; // Reset index
+        }
+
+        Vector3 spawnPosition = spawnPoints[currentSpawnIndex++].transform.position;
+
+        switch (objectToSpawnPrefab.tag)
+        {
+            case "FalseFriend":
+                spawnPosition.y = 0f;
+                break;
+            case "TutorialAd":
+                spawnPosition.y = 0.2f;
+                break;
+            case "ProximityAd":
+                spawnPosition.y = 1.5f;
+                break;
+            default:
+                spawnPosition.y = BoundaryManager.Instance.hmd.position.y;
+                break;
+        }
+
+        GameObject spawnedObject = Instantiate(objectToSpawnPrefab, spawnPosition, Quaternion.identity);
+        DarkPattern darkPattern = spawnedObject.GetComponent<DarkPattern>();
+        if (darkPattern != null)
+        {
+            darkPattern.Initialize(spawnCount, spawnedObject);
+            activePatterns.Add(darkPattern);
+
+        }
+
+    }
+
+    private void ShuffleSpawnPoints()
+    {
+        int n = spawnPoints.Count;
+        while (n > 1)
+        {
+            int k = rand.Next(n--);
+            GameObject temp = spawnPoints[n];
+            spawnPoints[n] = spawnPoints[k];
+            spawnPoints[k] = temp;
+        }
+    }
 
 
 

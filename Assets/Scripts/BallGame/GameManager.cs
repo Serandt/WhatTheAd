@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject popupsDisplay;
     public GameObject buttons;
 
-    public float gameTime = 60 *5f;
+    public float gameTime = 60 * 1f;
 
     public int playerLives = 3;
     public int livesRemaining;
@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
         highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {globalHighscore}";
         string id = Guid.NewGuid().ToString("N").Substring(0, 8);
         GameData.Instance.SetPlayerID(id);
+
+        StartGame(Condition.Message);
     }
 
 
@@ -97,6 +99,7 @@ public class GameManager : MonoBehaviour
             if (playGame)
             {
                 EndGame();
+                popupsDisplay.GetComponent<TextMeshPro>().text = "Done. The experiment leader will tell you what to do next.";
             }
         }
     }
@@ -125,15 +128,16 @@ public class GameManager : MonoBehaviour
     public void StartGame(Condition cond)
     {
         BallSpawner.Instance.SetUpSpawnTimes();
+        DarkPatternManager.Instance.SetUpSpawnTimes();
+        popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {DarkPatternManager.Instance.activePatterns.Count} {Environment.NewLine} Points for ball: {Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count)}";
 
-        DarkPatternManager.Instance.currentTimeSpawner = DarkPatternManager.Instance.spawnTimer;
-        BallSpawner.Instance.SetUpSpawnTimes();
         GameData.Instance.ClearDataWrapper();
         startTime = Time.time;
         buttons.SetActive(false);
         timeRemaining = gameTime;
         playGame = true;
         condition = cond;
+        livesRemaining = 3;
        
 
         switch (cond)
@@ -179,7 +183,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndGame()
-    { 
+    {
+        
+        AudioManager.Instance.ConditionComplete();
         foreach (var pattern in DarkPatternManager.Instance.activePatterns)
         {
             if (!playTutorial){
@@ -263,16 +269,22 @@ public class GameManager : MonoBehaviour
     {
         livesRemaining--;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {livesRemaining}";
-        Debug.Log("Lives: " + livesRemaining);
+        ControllerInteraction.Instance.ControllerVibration();
 
-        if(livesRemaining == 0)
+        if (livesRemaining == 0)
         {
-            Debug.Log("Game Over");
+           
             LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {livesRemaining}{Environment.NewLine}You lost... {Environment.NewLine}Reseting Score";
             ResetLives();
             if (score > 0)
                 score = 0;
-            Invoke("ResetGameOverMessage", 5f);
+            Invoke("ResetGameOverMessage", 3f);
+            if(playGame)
+                AudioManager.Instance.GameOver();
+        }
+        else
+        {
+            AudioManager.Instance.LoseLive();
         }
     }
 
@@ -285,4 +297,7 @@ public class GameManager : MonoBehaviour
     {
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {livesRemaining}";
     }
+
+
+
 }

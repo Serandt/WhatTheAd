@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -13,17 +14,26 @@ public class MessagePattern : DarkPattern
 
     private System.Random random = new System.Random();
     private GameObject Player;
+    private float closeTime = 5;
+    public bool canBeClosed;
+    public GameObject closeText;
+    public GameObject closeCounter;
 
     void Start()
     {
+        canBeClosed = false;
         Player = GameObject.Find("CenterEyeAnchor");
         GameObject child = transform.GetChild(3).gameObject;
         child.GetComponent<TextMeshPro>().text = GenerateMessage();
+        closeText.GetComponent<TextMeshPro>().color = Color.grey;
+
+        StartCoroutine(CountdownTimer());
     }
 
     private void Update()
     {
         FacePlayer();
+  
     }
 
     string GenerateMessage()
@@ -37,6 +47,7 @@ public class MessagePattern : DarkPattern
 
         float value = random.Next(1, 15);
         return $"{message.Item1}{value}{message.Item2}";
+
     }
 
     void FacePlayer()
@@ -49,5 +60,23 @@ public class MessagePattern : DarkPattern
 
         // Apply the rotation to the spawned object
         this.transform.rotation = rotationToPlayer;
+    }
+
+    void SetButtonInteractable()
+    {
+        canBeClosed = true;
+        closeText.GetComponent<TextMeshPro>().color = Color.white;
+    }
+
+    private IEnumerator CountdownTimer()
+    {
+        while (closeTime > 0)
+        {
+            closeCounter.GetComponent<TextMeshPro>().text = "can be closed in: " + ((int)closeTime).ToString();
+            yield return new WaitForSeconds(1f);
+            closeTime -= 1f;
+        }
+        closeCounter.GetComponent<TextMeshPro>().text = ""; // Clear counter text when done
+        SetButtonInteractable(); // Consider calling this here if timing is critical
     }
 }
