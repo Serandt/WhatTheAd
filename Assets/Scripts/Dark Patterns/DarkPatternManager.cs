@@ -98,7 +98,8 @@ public class DarkPatternManager : MonoBehaviour
             currentSpawnIndex = 0; // Reset index
         }
 
-        Vector3 spawnPosition = spawnPoints[currentSpawnIndex++].transform.position;
+        Vector3 spawnPosition = spawnPoints[currentSpawnIndex].transform.position;
+        Debug.Log(spawnPoints[currentSpawnIndex].name);
 
         switch (objectToSpawnPrefab.tag)
         {
@@ -124,6 +125,7 @@ public class DarkPatternManager : MonoBehaviour
             activePatterns.Add(darkPattern);
 
         }
+        currentSpawnIndex++;
 
     }
 
@@ -132,10 +134,11 @@ public class DarkPatternManager : MonoBehaviour
         int n = spawnPoints.Count;
         while (n > 1)
         {
-            int k = rand.Next(n--);
-            GameObject temp = spawnPoints[n];
-            spawnPoints[n] = spawnPoints[k];
-            spawnPoints[k] = temp;
+            n--;
+            int k = rand.Next(n+1);
+            GameObject temp = spawnPoints[k];
+            spawnPoints[k] = spawnPoints[n];
+            spawnPoints[n] = temp;
         }
     }
 

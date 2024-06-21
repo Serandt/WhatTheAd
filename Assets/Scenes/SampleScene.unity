@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overCameraRig: {fileID: 2130237513}
   startInterval: 10
-  endInterval: 2
+  endInterval: 5
   decreaseTime: 240
   currentInterval: 0
   spawnCount: 0
