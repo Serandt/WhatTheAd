@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class MessagePattern : DarkPattern
 {
-    private (string, string)[] Messages = new (string, string)[] {    
-        ("Your score is only ", " point(s) below average! Keep going!"),   
-        ("Current score at least ", "% down the average of others players at current time..."),   
-        ("In average players closed the last ad at least ", "% faster than you..."),
-        ("You can ignore me, you won't reach the highscore anyways :)", null),
-        ("Are you trying to lose on purpose? Because you're doing an excellent job!", null)
+    private (string, string)[] Messages = new (string, string)[] {
+        ("Your score is only ", " point(s) below average!"),
+        ("Your score is at least ", "% below the average."),
+        ("Others closed their last ad ", "% faster than you."),
+        ("Ignore this, you won't hit the highscore :)", null),
+        ("Trying to lose? You're excelling at it!", null),
+        ("Still playing? Your score says otherwise.", null),
+        ("Others are improving, you’re just lagging behind.", null),
+        ("That effort was pathetic, honestly.", null),
+        ("Ever thought of quitting? Now might be the time.", null),
+        ("Is this your best? Let’s hope not.", null),
+        ("You're getting worse. Consider stopping.", null),
+        ("Maybe gaming isn’t for you. Ever tried knitting?", null),
+        ("Don’t feel bad, some just aren’t cut out for this.", null),
+        ("Why keep trying? You’re not making any progress.", null),
+        ("Ouch, that performance was hard to watch.", null)
     };
 
     private System.Random random = new System.Random();
@@ -28,6 +38,8 @@ public class MessagePattern : DarkPattern
         closeText.GetComponent<TextMeshPro>().color = Color.grey;
 
         StartCoroutine(CountdownTimer());
+
+
     }
 
     private void Update()
@@ -79,4 +91,7 @@ public class MessagePattern : DarkPattern
         closeCounter.GetComponent<TextMeshPro>().text = ""; // Clear counter text when done
         SetButtonInteractable(); // Consider calling this here if timing is critical
     }
+
+
+  
 }

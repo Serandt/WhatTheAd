@@ -28,7 +28,10 @@ public class DarkPatternManager : MonoBehaviour
     public GameObject tutorialAd;
 
     public List<DarkPattern> activePatterns = new List<DarkPattern>();
-    public List<GameObject> spawnPoints = new List<GameObject>();
+    private List<GameObject> spawnPointsList = new List<GameObject>();
+
+    public GameObject spawnPointsProximityAd;
+    public GameObject spawnPointsAds;
 
     public GameObject activeDarkPattern;
 
@@ -42,8 +45,8 @@ public class DarkPatternManager : MonoBehaviour
 
     private void Start()
     {
-        SetUpSpawnTimes();
-        ShuffleSpawnPoints();
+        //SetUpSpawnTimes();
+        //ShuffleSpawnPoints();
     }
 
     private void Update()
@@ -82,24 +85,43 @@ public class DarkPatternManager : MonoBehaviour
         currentInterval = startInterval;
         timeElapsed = 0f;
         lastSpawnTime = Time.time;
+        Debug.Log(GameManager.Instance.condition);
+        if (GameManager.Instance.condition == GameManager.Condition.Proximity)
+        {
+            GameObjectsSpawnPointsToList(spawnPointsProximityAd);
+        }
+        else
+        {
+            GameObjectsSpawnPointsToList(spawnPointsAds);
+        }
+    }
+
+    public void GameObjectsSpawnPointsToList(GameObject spawnPoints)
+    {
+        foreach (Transform child in spawnPoints.transform)
+        {
+            spawnPointsList.Add(child.gameObject);
+        }
+        ShuffleSpawnPoints();
+
     }
 
     public void SpawnAd(GameObject objectToSpawnPrefab, int spawnCount)
     {
-        if (spawnPoints.Count == 0)
+        if (spawnPointsList.Count == 0)
         {
             Debug.LogError("Spawn points list is empty.");
             return;
         }
 
-        if (currentSpawnIndex >= spawnPoints.Count)
+        if (currentSpawnIndex >= spawnPointsList.Count)
         {
             ShuffleSpawnPoints(); // Reshuffle the list when all points have been used
             currentSpawnIndex = 0; // Reset index
         }
 
-        Vector3 spawnPosition = spawnPoints[currentSpawnIndex].transform.position;
-        Debug.Log(spawnPoints[currentSpawnIndex].name);
+        Vector3 spawnPosition = spawnPointsList[currentSpawnIndex].transform.position;
+        Debug.Log(spawnPointsList[currentSpawnIndex].name);
 
         switch (objectToSpawnPrefab.tag)
         {
@@ -113,7 +135,7 @@ public class DarkPatternManager : MonoBehaviour
                 spawnPosition.y = 1.5f;
                 break;
             default:
-                spawnPosition.y = BoundaryManager.Instance.hmd.position.y;
+                spawnPosition.y = BoundaryManager.Instance.hmd.position.y - 0.1f;
                 break;
         }
 
@@ -131,14 +153,14 @@ public class DarkPatternManager : MonoBehaviour
 
     private void ShuffleSpawnPoints()
     {
-        int n = spawnPoints.Count;
+        int n = spawnPointsList.Count;
         while (n > 1)
         {
             n--;
             int k = rand.Next(n+1);
-            GameObject temp = spawnPoints[k];
-            spawnPoints[k] = spawnPoints[n];
-            spawnPoints[n] = temp;
+            GameObject temp = spawnPointsList[k];
+            spawnPointsList[k] = spawnPointsList[n];
+            spawnPointsList[n] = temp;
         }
     }
 

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     public bool playTutorial = false;
 
-    private float globalHighscore = 42.1f;
+    private float globalHighscore = 134f;
 
     private float endGameCoolDown = 5f;
 
@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
         string id = Guid.NewGuid().ToString("N").Substring(0, 8);
         GameData.Instance.SetPlayerID(id);
 
-        StartGame(Condition.Message);
     }
 
 
@@ -128,7 +127,7 @@ public class GameManager : MonoBehaviour
     public void StartGame(Condition cond)
     {
         BallSpawner.Instance.SetUpSpawnTimes();
-        DarkPatternManager.Instance.SetUpSpawnTimes();
+        scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {DarkPatternManager.Instance.activePatterns.Count} {Environment.NewLine} Points for ball: {Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count)}";
 
         GameData.Instance.ClearDataWrapper();
@@ -138,7 +137,9 @@ public class GameManager : MonoBehaviour
         playGame = true;
         condition = cond;
         livesRemaining = 3;
-       
+
+        DarkPatternManager.Instance.SetUpSpawnTimes();
+
 
         switch (cond)
         {
@@ -159,7 +160,9 @@ public class GameManager : MonoBehaviour
 
     public void PlayTutorial()
     {
-        if(playTutorial == true)
+        BallSpawner.Instance.SetUpSpawnTimes();
+        DarkPatternManager.Instance.SetUpSpawnTimes();
+        if (playTutorial == true)
         {
             for (int i = 1; i < buttons.transform.childCount; i++)
             {
@@ -226,7 +229,6 @@ public class GameManager : MonoBehaviour
         ResetLives();
         timeRemaining = 0;
         DarkPatternManager.Instance.spawnCount = 0;
-        score = 0;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         timeDisplay.GetComponent<TextMeshPro>().text = FormatTime(timeRemaining);
