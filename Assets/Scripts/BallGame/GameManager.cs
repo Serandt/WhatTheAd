@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
         highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {globalHighscore}";
         string id = Guid.NewGuid().ToString("N").Substring(0, 8);
         GameData.Instance.SetPlayerID(id);
-
     }
 
 
