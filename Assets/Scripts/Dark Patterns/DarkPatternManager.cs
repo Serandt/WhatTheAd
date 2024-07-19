@@ -43,11 +43,6 @@ public class DarkPatternManager : MonoBehaviour
         Vector3 cameraPos = GetCameraPos();
     }
 
-    private void Start()
-    {
-        //SetUpSpawnTimes();
-        //ShuffleSpawnPoints();
-    }
 
     private void Update()
     {

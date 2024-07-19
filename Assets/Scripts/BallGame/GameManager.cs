@@ -70,7 +70,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         score = 0;
+        conditionCounter = 0;
         livesRemaining = playerLives;
         LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         highscoresDisplay.GetComponent<TextMeshPro>().text = $"Highscore: {globalHighscore}";
@@ -127,6 +129,9 @@ public class GameManager : MonoBehaviour
     public void StartGame(Condition cond)
     {
         BallSpawner.Instance.SetUpSpawnTimes();
+        livesRemaining = playerLives;
+        score = 0;
+        LivesDisplay.GetComponent<TextMeshPro>().text = $"Lives: {playerLives}";
         scoreDisplay.GetComponent<TextMeshPro>().text = "Points: " + score.ToString();
         popupsDisplay.GetComponent<TextMeshPro>().text = $"Current ads open: {DarkPatternManager.Instance.activePatterns.Count} {Environment.NewLine} Points for ball: {Math.Pow(.5f, DarkPatternManager.Instance.activePatterns.Count)}";
 
@@ -136,7 +141,6 @@ public class GameManager : MonoBehaviour
         timeRemaining = gameTime;
         playGame = true;
         condition = cond;
-        livesRemaining = 3;
 
         DarkPatternManager.Instance.SetUpSpawnTimes();
 
@@ -206,12 +210,14 @@ public class GameManager : MonoBehaviour
             }
             conditionCounter++;
         }
-   
+        Debug.Log("Condition Counter: " + conditionCounter);
+       
         if (conditionCounter > 3)
         {
             string id = Guid.NewGuid().ToString("N").Substring(0, 8);
             GameData.Instance.SetPlayerID(id);
             conditionCounter = 0;
+            Debug.Log("In if: " + id);
         }
 
 
